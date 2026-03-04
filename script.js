@@ -182,12 +182,9 @@ ready(function () {
   }
 
   /* ───────────────────────────────────────────────────────────
-     7. HERO SPOTLIGHT — luce che segue il cursore nella hero
-     Solo su dispositivi con mouse preciso (pointer: fine).
-     Il cursor glow globale si spegne mentre si è nella hero.
+     7. HERO SPOTLIGHT — segue il cursore, usa window mousemove
+     Non dipende da pointer:fine (evita falsi negativi su localhost)
      ───────────────────────────────────────────────────────── */
-  /* Spotlight: funziona su qualsiasi dispositivo con mouse
-     Non dipende da pointer:fine per evitare falsi negativi su localhost */
   var heroSection = document.getElementById('hero');
   var spotlight   = document.getElementById('heroSpotlight');
 
@@ -200,50 +197,59 @@ ready(function () {
     var spos       = { x: 0, y: 0 };
     var sraf       = null;
     var insideHero = false;
-    var started    = false;
 
-    // Centra lo spotlight al centro della hero
+    // Centra lo spotlight (posizione di riposo)
     function spotlightCenter() {
-      var r = heroSection.getBoundingClientRect();
+      var r    = heroSection.getBoundingClientRect();
       smouse.x = spos.x = r.width  / 2;
       smouse.y = spos.y = r.height / 2;
       spotlight.style.transform = 'translate(' + (spos.x - hw) + 'px,' + (spos.y - hh) + 'px)';
     }
 
-    // Loop lerp: muove morbidamente verso il target
+    // Muove lo spotlight verso il target con lerp
     function spotlightLoop() {
-      spos.x = slrp(spos.x, smouse.x, 0.065);
-      spos.y = slrp(spos.y, smouse.y, 0.065);
+      spos.x = slrp(spos.x, smouse.x, 0.06);
+      spos.y = slrp(spos.y, smouse.y, 0.06);
       spotlight.style.transform = 'translate(' + (spos.x - hw) + 'px,' + (spos.y - hh) + 'px)';
       sraf = requestAnimationFrame(spotlightLoop);
     }
 
-    // Inizializza centrato
+    // Inizializza al centro subito
     spotlightCenter();
-    // Avvia subito il loop — lo spotlight è sempre pronto
-    spotlightLoop();
 
-    // Ascolta mousemove su window: più affidabile di mouseenter
+    // Ascolta mousemove sull'intera finestra — più affidabile di mouseenter
     window.addEventListener('mousemove', function (e) {
-      var r      = heroSection.getBoundingClientRect();
-      var x      = e.clientX - r.left;
-      var y      = e.clientY - r.top;
+      var r = heroSection.getBoundingClientRect();
+      var x = e.clientX - r.left;
+      var y = e.clientY - r.top;
+
+      // Dentro la hero?
       var inside = (x >= 0 && x <= r.width && y >= 0 && y <= r.height);
 
       if (inside) {
         smouse.x = x;
         smouse.y = y;
+
         if (!insideHero) {
+          // Prima volta che entra: salta subito alla posizione reale
           insideHero = true;
-          // Salta subito al punto di entrata senza lag
           spos.x = x;
           spos.y = y;
+          spotlight.style.transform = 'translate(' + (x - hw) + 'px,' + (y - hh) + 'px)';
           spotlight.classList.add('active');
+          if (!sraf) spotlightLoop();
         }
       } else {
         if (insideHero) {
           insideHero = false;
           spotlight.classList.remove('active');
+          setTimeout(function () {
+            if (!insideHero) {
+              cancelAnimationFrame(sraf);
+              sraf = null;
+              spotlightCenter();
+            }
+          }, 650);
         }
       }
     }, { passive: true });
@@ -263,7 +269,7 @@ ready(function () {
       'width:280px',
       'height:280px',
       'border-radius:50%',
-      'background:radial-gradient(circle,rgba(56,189,248,0.032) 0%,transparent 70%)',
+      'background:radial-gradient(circle,rgba(99,102,241,0.04) 0%,transparent 70%)',
       'pointer-events:none',
       'z-index:9998',
       'transform:translate(-50%,-50%)',
@@ -327,4 +333,4 @@ ready(function () {
     });
   }
 
-}); // fine ready()
+});
