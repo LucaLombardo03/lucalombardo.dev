@@ -160,7 +160,7 @@ body::before {
   font-weight: 400;
   letter-spacing: 0.06em;
   color: var(--text-muted);
-  transition: color var(--t) var(--ease);
+  transition: color 0.22s var(--ease);
 }
 
 .nav__links a::after {
@@ -171,7 +171,7 @@ body::before {
   width: 0;
   height: 1px;
   background: var(--accent);
-  transition: width var(--t) var(--ease);
+  transition: width 0.28s var(--ease);
 }
 
 .nav__links a:hover {
@@ -263,31 +263,37 @@ body::before {
   );
 }
 
-.hero__glow {
+/* ── HERO SPOTLIGHT (mouse-tracking) ─────────────────────── */
+.hero__spotlight {
   position: absolute;
-  top: 15%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+  top: 0;
+  left: 0;
   width: 700px;
   height: 700px;
+  border-radius: 50%;
   background: radial-gradient(
-    circle,
-    rgba(56, 189, 248, 0.07) 0%,
-    transparent 65%
+    circle at center,
+    rgba(56, 189, 248, 0.13) 0%,
+    rgba(56, 189, 248, 0.06) 30%,
+    rgba(56, 189, 248, 0.02) 55%,
+    transparent 70%
   );
   pointer-events: none;
-  animation: glowPulse 6s ease-in-out infinite;
+  opacity: 0;
+  transition: opacity 0.6s ease;
+  will-change: transform;
 }
 
-@keyframes glowPulse {
-  0%,
-  100% {
-    opacity: 1;
-    transform: translate(-50%, -50%) scale(1);
-  }
-  50% {
+/* visibile appena il mouse entra nella hero */
+.hero__spotlight.active {
+  opacity: 1;
+}
+
+/* su touch device rimane un glow statico centrale leggero */
+@media (hover: none) {
+  .hero__spotlight {
     opacity: 0.6;
-    transform: translate(-50%, -50%) scale(1.1);
+    animation: none;
   }
 }
 
@@ -522,10 +528,12 @@ body::before {
   cursor: pointer;
   border: 1px solid transparent;
   transition:
-    transform var(--t) var(--ease),
-    box-shadow var(--t) var(--ease),
-    background var(--t) var(--ease),
-    border-color var(--t) var(--ease);
+    transform 0.28s var(--ease),
+    box-shadow 0.28s var(--ease),
+    background 0.28s var(--ease),
+    border-color 0.28s var(--ease),
+    color 0.28s var(--ease);
+  will-change: transform;
   position: relative;
   overflow: hidden;
 }
@@ -536,7 +544,7 @@ body::before {
   inset: 0;
   background: rgba(255, 255, 255, 0.07);
   opacity: 0;
-  transition: opacity var(--t) var(--ease);
+  transition: opacity 0.22s var(--ease);
 }
 .btn:hover::after {
   opacity: 1;
@@ -549,10 +557,14 @@ body::before {
 }
 
 .btn--primary:hover {
-  transform: translateY(-2px);
+  transform: translateY(-3px) scale(1.01);
   box-shadow:
-    0 6px 24px rgba(56, 189, 248, 0.4),
+    0 10px 32px rgba(56, 189, 248, 0.52),
     0 0 0 1px var(--accent);
+}
+.btn--primary:active {
+  transform: translateY(-1px) scale(0.99);
+  box-shadow: 0 4px 14px rgba(56, 189, 248, 0.35);
 }
 
 .btn--outline {
@@ -562,11 +574,14 @@ body::before {
 }
 
 .btn--outline:hover {
-  transform: translateY(-2px);
+  transform: translateY(-3px) scale(1.01);
   background: var(--accent-dim);
   border-color: var(--accent);
   color: var(--accent);
-  box-shadow: 0 6px 24px rgba(56, 189, 248, 0.15);
+  box-shadow: 0 10px 28px rgba(56, 189, 248, 0.18);
+}
+.btn--outline:active {
+  transform: translateY(-1px) scale(0.99);
 }
 
 /* ── SCROLL INDICATOR ─────────────────────────────────────── */
@@ -644,8 +659,8 @@ body::before {
 }
 .about__email-btn:hover {
   background: var(--accent-dim);
-  box-shadow: 0 4px 16px var(--accent-glow);
-  transform: translateY(-1px);
+  box-shadow: 0 6px 20px var(--accent-glow);
+  transform: translateY(-2px) scale(1.01);
 }
 .about__email-btn svg {
   transition: transform var(--t) var(--ease);
@@ -691,6 +706,8 @@ body::before {
 .tag:hover {
   background: rgba(56, 189, 248, 0.18);
   border-color: var(--accent);
+  transform: translateY(-1px);
+  box-shadow: 0 3px 10px rgba(56, 189, 248, 0.12);
 }
 
 .tag--sm {
@@ -712,11 +729,12 @@ body::before {
   border: 1px solid var(--border);
   border-radius: var(--radius-lg);
   transition:
-    border-color var(--t) var(--ease),
-    transform var(--t) var(--ease),
-    box-shadow var(--t) var(--ease);
+    border-color 0.3s var(--ease),
+    transform 0.3s var(--ease),
+    box-shadow 0.3s var(--ease);
   position: relative;
   overflow: hidden;
+  will-change: transform;
 }
 
 /* top shimmer line */
@@ -739,11 +757,11 @@ body::before {
 
 .card:hover {
   border-color: var(--border-hover);
-  transform: translateY(-5px);
+  transform: translateY(-6px) scale(1.025);
   box-shadow:
-    0 20px 60px rgba(0, 0, 0, 0.45),
+    0 22px 64px rgba(0, 0, 0, 0.5),
     0 0 0 1px var(--border-hover),
-    0 0 40px rgba(56, 189, 248, 0.06);
+    0 0 36px rgba(56, 189, 248, 0.11);
 }
 .card:hover::before {
   opacity: 1;
@@ -991,12 +1009,13 @@ body::before {
   border-radius: var(--radius);
   cursor: default;
   transition:
-    border-color var(--t) var(--ease),
-    transform var(--t) var(--ease),
-    background var(--t) var(--ease),
-    box-shadow var(--t) var(--ease);
+    border-color 0.28s var(--ease),
+    transform 0.28s var(--ease),
+    background 0.28s var(--ease),
+    box-shadow 0.28s var(--ease);
   position: relative;
   overflow: hidden;
+  will-change: transform;
 }
 
 .stack__item::after {
@@ -1013,11 +1032,11 @@ body::before {
 
 .stack__item:hover {
   border-color: var(--border-hover);
-  transform: translateY(-5px);
-  background: rgba(56, 189, 248, 0.05);
+  transform: translateY(-7px) scale(1.04);
+  background: rgba(56, 189, 248, 0.06);
   box-shadow:
-    0 8px 28px rgba(0, 0, 0, 0.3),
-    0 0 20px rgba(56, 189, 248, 0.08);
+    0 14px 36px rgba(0, 0, 0, 0.35),
+    0 0 22px rgba(56, 189, 248, 0.13);
 }
 .stack__item:hover::after {
   transform: scaleX(1);
@@ -1034,8 +1053,8 @@ body::before {
     filter var(--t) var(--ease);
 }
 .stack__item:hover .stack__icon-wrap {
-  transform: scale(1.12);
-  filter: drop-shadow(0 0 8px var(--accent-glow));
+  transform: scale(1.15) translateY(-2px);
+  filter: drop-shadow(0 0 10px rgba(56, 189, 248, 0.5));
 }
 
 .stack__icon {
@@ -1093,12 +1112,13 @@ body::before {
   border: 1px solid var(--border);
   border-radius: var(--radius);
   transition:
-    border-color var(--t) var(--ease),
-    transform var(--t) var(--ease),
-    background var(--t) var(--ease),
-    box-shadow var(--t) var(--ease);
+    border-color 0.28s var(--ease),
+    transform 0.28s var(--ease),
+    background 0.28s var(--ease),
+    box-shadow 0.28s var(--ease);
   position: relative;
   overflow: hidden;
+  will-change: transform;
 }
 
 .contact__link::before {
@@ -1118,7 +1138,9 @@ body::before {
   border-color: var(--border-hover);
   transform: translateX(5px);
   background: rgba(56, 189, 248, 0.04);
-  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.3);
+  box-shadow:
+    0 6px 28px rgba(0, 0, 0, 0.35),
+    0 0 18px rgba(56, 189, 248, 0.09);
 }
 .contact__link:hover::before {
   transform: scaleY(1);
@@ -1240,7 +1262,11 @@ body::before {
   height: 16px;
 }
 
-/* ── SCROLL REVEAL ANIMATIONS ─────────────────────────────── */
+/* ============================================================
+   ANIMATIONS & ENHANCED INTERACTIONS  v3 (clean, no duplicates)
+   ============================================================ */
+
+/* ── KEYFRAMES ────────────────────────────────────────────── */
 @keyframes fadeUp {
   from {
     opacity: 0;
@@ -1261,12 +1287,52 @@ body::before {
   }
 }
 
+@keyframes slideInLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-18px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes glowPulse {
+  0%,
+  100% {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+  }
+  50% {
+    opacity: 0.6;
+    transform: translate(-50%, -50%) scale(1.1);
+  }
+}
+
+@keyframes statPop {
+  0% {
+    transform: scale(0.75);
+    opacity: 0;
+  }
+  65% {
+    transform: scale(1.08);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+/* ── SCROLL REVEAL ────────────────────────────────────────── */
+/* Base: elementi nascosti finché non entrano nel viewport    */
 .reveal {
   opacity: 0;
-  transform: translateY(30px);
+  transform: translateY(26px);
   transition:
-    opacity 0.65s var(--ease),
-    transform 0.65s var(--ease);
+    opacity 0.58s var(--ease),
+    transform 0.58s var(--ease);
 }
 
 .reveal.visible {
@@ -1274,25 +1340,141 @@ body::before {
   transform: translateY(0);
 }
 
+/* Le setion__label scorrono da sinistra invece che dal basso */
+.reveal.label-reveal {
+  transform: translateX(-18px);
+  transition:
+    opacity 0.42s var(--ease),
+    transform 0.42s var(--ease);
+}
+.reveal.label-reveal.visible {
+  transform: translateX(0);
+}
+
+/* Stagger: ogni figlio arriva leggermente dopo il precedente */
 .reveal-delay-1 {
-  transition-delay: 0.1s;
+  transition-delay: 0.07s;
 }
 .reveal-delay-2 {
-  transition-delay: 0.2s;
+  transition-delay: 0.14s;
 }
 .reveal-delay-3 {
-  transition-delay: 0.3s;
+  transition-delay: 0.21s;
 }
 .reveal-delay-4 {
-  transition-delay: 0.4s;
+  transition-delay: 0.28s;
 }
 .reveal-delay-5 {
-  transition-delay: 0.5s;
+  transition-delay: 0.35s;
+}
+
+/* ── HERO STAT COUNT-UP ───────────────────────────────────── */
+.hero__stat-num.popped {
+  animation: statPop 0.48s var(--ease) both;
+}
+
+/* ── ARROW ICON nei button hero ───────────────────────────── */
+/* L'SVG dentro btn--primary trasla leggermente a dx su hover */
+.btn--primary svg,
+.btn--outline svg {
+  transition: transform 0.25s var(--ease);
+  flex-shrink: 0;
+}
+.btn--primary:hover svg,
+.btn--outline:hover svg {
+  transform: translateX(4px);
+}
+
+/* ── CARD SERVICE: hover effetto premium ──────────────────── */
+/* (scale e glow già in .card:hover — qui raffiniamo l'icona) */
+.card--service .card__icon {
+  transition:
+    background 0.28s var(--ease),
+    box-shadow 0.28s var(--ease),
+    transform 0.28s var(--ease);
+}
+.card--service:hover .card__icon {
+  background: rgba(56, 189, 248, 0.18);
+  box-shadow: 0 0 18px rgba(56, 189, 248, 0.28);
+  transform: scale(1.1) rotate(-3deg);
+}
+
+/* ── CARD PROJECT: pulsante overlay arrow ─────────────────── */
+.card__btn svg {
+  transition: transform 0.22s var(--ease);
+}
+.card__btn--demo:hover svg,
+.card__btn--code:hover svg {
+  transform: translateX(3px);
+}
+
+/* ── STACK ICON WRAP: glow raffinato ─────────────────────── */
+.stack__icon-wrap {
+  transition:
+    transform 0.28s var(--ease),
+    filter 0.28s var(--ease);
+}
+.stack__item:hover .stack__icon-wrap {
+  transform: scale(1.15) translateY(-2px);
+  filter: drop-shadow(0 0 10px rgba(56, 189, 248, 0.5));
+}
+
+/* contact__link:hover → già consolidato sopra */
+
+/* ── FOOTER TOP ARROW ─────────────────────────────────────── */
+.footer__top svg {
+  transition: transform 0.25s var(--ease);
+}
+.footer__top:hover svg {
+  transform: translateY(-2px);
+}
+
+/* ── NAV CTA GLOW ─────────────────────────────────────────── */
+.nav__cta {
+  transition:
+    background 0.25s var(--ease),
+    border-color 0.25s var(--ease),
+    box-shadow 0.25s var(--ease),
+    transform 0.25s var(--ease) !important;
+}
+.nav__cta:hover {
+  transform: translateY(-1px) !important;
+}
+
+/* ── ABOUT EMAIL BTN ARROW ────────────────────────────────── */
+.about__email-btn svg {
+  transition: transform 0.22s var(--ease);
+}
+.about__email-btn:hover svg {
+  transform: translateX(4px);
+}
+
+/* ── TAG micro-hover ──────────────────────────────────────── */
+.tag {
+  transition:
+    background 0.22s var(--ease),
+    border-color 0.22s var(--ease),
+    transform 0.22s var(--ease),
+    box-shadow 0.22s var(--ease);
+}
+
+/* ── REDUCE MOTION — accessibilità obbligatoria ───────────── */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+  .reveal {
+    opacity: 1 !important;
+    transform: none !important;
+  }
 }
 
 /* ── RESPONSIVE ───────────────────────────────────────────── */
 @media (max-width: 1060px) {
-  /* hero: stack vertically, hide code block */
   .hero__inner {
     flex-direction: column;
     justify-content: center;
@@ -1362,7 +1544,6 @@ body::before {
   .hero {
     padding: 80px 20px 60px;
   }
-
   .section {
     padding: 64px 0;
   }
@@ -1382,7 +1563,6 @@ body::before {
   .hero__stat {
     padding: 0 12px;
   }
-
   .stack__grid {
     grid-template-columns: repeat(3, 1fr);
   }
@@ -1393,6 +1573,14 @@ body::before {
   }
   .footer__copy {
     order: 2;
+  }
+
+  /* su mobile le card non scalano — evita zoom indesiderato */
+  .card:hover {
+    transform: translateY(-3px) !important;
+  }
+  .stack__item:hover {
+    transform: translateY(-3px) !important;
   }
 
   .btn {

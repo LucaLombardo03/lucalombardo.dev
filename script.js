@@ -1,146 +1,330 @@
 /* ============================================================
-   LUCA LOMBARDO — PORTFOLIO  v2
+   LUCA LOMBARDO — PORTFOLIO  v3
    script.js
    ============================================================ */
 
 'use strict';
 
-/* ── NAV: scroll effect ───────────────────────────────────── */
-const nav = document.getElementById('nav');
-
-function handleScroll() {
-  nav.classList.toggle('scrolled', window.scrollY > 40);
+/* ─────────────────────────────────────────────────────────────
+   UTILITY — aspetta che il DOM sia pronto
+   ───────────────────────────────────────────────────────────── */
+function ready(fn) {
+  if (document.readyState !== 'loading') { fn(); }
+  else { document.addEventListener('DOMContentLoaded', fn); }
 }
-window.addEventListener('scroll', handleScroll, { passive: true });
-handleScroll();
 
-/* ── NAV: mobile burger ───────────────────────────────────── */
-const burger   = document.getElementById('burger');
-const navLinks = document.getElementById('navLinks');
+ready(function () {
 
-burger.addEventListener('click', () => {
-  const isOpen = navLinks.classList.toggle('open');
-  burger.classList.toggle('open', isOpen);
-  burger.setAttribute('aria-expanded', String(isOpen));
-  document.body.style.overflow = isOpen ? 'hidden' : '';
-});
-
-navLinks.querySelectorAll('a').forEach(link => {
-  link.addEventListener('click', () => {
-    navLinks.classList.remove('open');
-    burger.classList.remove('open');
-    burger.setAttribute('aria-expanded', 'false');
-    document.body.style.overflow = '';
-  });
-});
-
-/* ── ACTIVE NAV LINK on scroll ────────────────────────────── */
-const sections   = document.querySelectorAll('section[id]');
-const navAnchors = document.querySelectorAll('.nav__links a[href^="#"]');
-
-const sectionObserver = new IntersectionObserver(entries => {
-  entries.forEach(entry => {
-    if (entry.isIntersecting) {
-      navAnchors.forEach(a => {
-        a.classList.toggle('active', a.getAttribute('href') === '#' + entry.target.id);
-      });
+  /* ───────────────────────────────────────────────────────────
+     1. NAV — blur quando si scrolla
+     ───────────────────────────────────────────────────────── */
+  var nav = document.getElementById('nav');
+  if (nav) {
+    function onScroll() {
+      nav.classList.toggle('scrolled', window.scrollY > 40);
     }
-  });
-}, { threshold: 0.4 });
+    window.addEventListener('scroll', onScroll, { passive: true });
+    onScroll();
+  }
 
-sections.forEach(s => sectionObserver.observe(s));
+  /* ───────────────────────────────────────────────────────────
+     2. NAV — burger menu mobile
+     ───────────────────────────────────────────────────────── */
+  var burger   = document.getElementById('burger');
+  var navLinks = document.getElementById('navLinks');
 
-/* ── SCROLL REVEAL ────────────────────────────────────────── */
-// Elements to reveal — we add reveal class and optional stagger
-const revealConfig = [
-  // single elements
-  { sel: '.section__label',    stagger: false },
-  { sel: '.section__title',    stagger: false },
-  { sel: '.about__text',       stagger: true  },
-  { sel: '.about__tags',       stagger: false },
-  { sel: '.about__email-btn',  stagger: false },
-  { sel: '.contact__subtitle', stagger: false },
-  // grid items — staggered
-  { sel: '.card--service',     stagger: true  },
-  { sel: '.card--project',     stagger: true  },
-  { sel: '.stack__item',       stagger: true  },
-  { sel: '.contact__link',     stagger: true  },
-];
+  if (burger && navLinks) {
+    burger.addEventListener('click', function () {
+      var open = navLinks.classList.toggle('open');
+      burger.classList.toggle('open', open);
+      burger.setAttribute('aria-expanded', String(open));
+      document.body.style.overflow = open ? 'hidden' : '';
+    });
 
-revealConfig.forEach(({ sel, stagger }) => {
-  // Group siblings by parent so stagger is per-row
-  const elements = document.querySelectorAll(sel);
-  const groups   = new Map();
+    navLinks.querySelectorAll('a').forEach(function (link) {
+      link.addEventListener('click', function () {
+        navLinks.classList.remove('open');
+        burger.classList.remove('open');
+        burger.setAttribute('aria-expanded', 'false');
+        document.body.style.overflow = '';
+      });
+    });
+  }
 
-  elements.forEach(el => {
-    const parent = el.parentElement;
-    if (!groups.has(parent)) groups.set(parent, []);
-    groups.get(parent).push(el);
-  });
-
-  groups.forEach(children => {
-    children.forEach((el, i) => {
-      el.classList.add('reveal');
-      if (stagger && i > 0) {
-        el.classList.add(`reveal-delay-${Math.min(i, 5)}`);
-      }
+  /* ───────────────────────────────────────────────────────────
+     3. NAV — smooth scroll con offset per navbar fixed
+     ───────────────────────────────────────────────────────── */
+  document.querySelectorAll('a[href^="#"]').forEach(function (anchor) {
+    anchor.addEventListener('click', function (e) {
+      var href   = anchor.getAttribute('href');
+      var target = document.querySelector(href);
+      if (!target) return;
+      e.preventDefault();
+      var offset = nav ? nav.offsetHeight + 8 : 78;
+      var top    = target.getBoundingClientRect().top + window.scrollY - offset;
+      window.scrollTo({ top: top, behavior: 'smooth' });
     });
   });
-});
 
-const revealObserver = new IntersectionObserver(entries => {
-  entries.forEach(entry => {
-    if (entry.isIntersecting) {
+  /* ───────────────────────────────────────────────────────────
+     4. NAV — active link highlight on scroll
+     ───────────────────────────────────────────────────────── */
+  var sections   = document.querySelectorAll('section[id]');
+  var navAnchors = document.querySelectorAll('.nav__links a[href^="#"]');
+
+  if (sections.length && navAnchors.length) {
+    var activeObserver = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (!entry.isIntersecting) return;
+        navAnchors.forEach(function (a) {
+          a.classList.toggle('active', a.getAttribute('href') === '#' + entry.target.id);
+        });
+      });
+    }, { threshold: 0.35 });
+
+    sections.forEach(function (s) { activeObserver.observe(s); });
+  }
+
+  /* ───────────────────────────────────────────────────────────
+     5. SCROLL REVEAL — fade-in + translateY con IntersectionObserver
+     Gli elementi ricevono .reveal dal JS (non dall'HTML),
+     così senza JS sono tutti visibili normalmente.
+     ───────────────────────────────────────────────────────── */
+  var revealTargets = [
+    { sel: '.section__label',    stagger: false, extra: 'label-reveal' },
+    { sel: '.section__title',    stagger: false, extra: '' },
+    { sel: '.about__left',       stagger: false, extra: '' },
+    { sel: '.about__text',       stagger: true,  extra: '' },
+    { sel: '.about__tags',       stagger: false, extra: '' },
+    { sel: '.about__email-btn',  stagger: false, extra: '' },
+    { sel: '.card--service',     stagger: true,  extra: '' },
+    { sel: '.card--project',     stagger: true,  extra: '' },
+    { sel: '.stack__item',       stagger: true,  extra: '' },
+    { sel: '.contact__subtitle', stagger: false, extra: '' },
+    { sel: '.contact__link',     stagger: true,  extra: '' },
+  ];
+
+  // Raggruppa elementi per parent così lo stagger è per-riga
+  revealTargets.forEach(function (cfg) {
+    var groups = new Map();
+    document.querySelectorAll(cfg.sel).forEach(function (el) {
+      var p = el.parentElement;
+      if (!groups.has(p)) groups.set(p, []);
+      groups.get(p).push(el);
+    });
+    groups.forEach(function (children) {
+      children.forEach(function (el, i) {
+        el.classList.add('reveal');
+        if (cfg.extra) el.classList.add(cfg.extra);
+        if (cfg.stagger && i > 0) {
+          el.classList.add('reveal-delay-' + Math.min(i, 5));
+        }
+      });
+    });
+  });
+
+  var revealObserver = new IntersectionObserver(function (entries) {
+    entries.forEach(function (entry) {
+      if (!entry.isIntersecting) return;
       entry.target.classList.add('visible');
       revealObserver.unobserve(entry.target);
+    });
+  }, { threshold: 0.08, rootMargin: '0px 0px -36px 0px' });
+
+  document.querySelectorAll('.reveal').forEach(function (el) {
+    revealObserver.observe(el);
+  });
+
+  /* ───────────────────────────────────────────────────────────
+     6. HERO STATS — counter animato easeOutCubic
+     ───────────────────────────────────────────────────────── */
+  function animateCounter(el) {
+    var original = el.textContent.trim();
+    var num      = parseInt(original.replace(/\D/g, ''), 10);
+    var prefix   = original.match(/^[^0-9]*/)[0] || '';
+    var suffix   = original.replace(/^[^0-9]*\d+/, '');
+
+    if (isNaN(num) || num === 0) {
+      el.classList.add('popped');
+      return;
     }
-  });
-}, {
-  threshold: 0.1,
-  rootMargin: '0px 0px -48px 0px'
-});
 
-document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
+    var dur   = 950;
+    var t0    = performance.now();
 
-/* ── SUBTLE CURSOR GLOW (desktop only) ───────────────────── */
-if (window.matchMedia('(pointer: fine)').matches) {
-  const glow = document.createElement('div');
-  glow.style.cssText = `
-    position: fixed;
-    width: 300px;
-    height: 300px;
-    border-radius: 50%;
-    background: radial-gradient(circle, rgba(56,189,248,0.055) 0%, transparent 70%);
-    pointer-events: none;
-    z-index: 9999;
-    transform: translate(-50%, -50%);
-    transition: opacity 0.3s ease;
-    opacity: 0;
-  `;
-  document.body.appendChild(glow);
+    function ease(t) { return 1 - Math.pow(1 - t, 3); }
 
-  let mouse = { x: 0, y: 0 };
-  let pos   = { x: 0, y: 0 };
-  let raf;
-
-  document.addEventListener('mousemove', e => {
-    mouse.x = e.clientX;
-    mouse.y = e.clientY;
-    glow.style.opacity = '1';
-  });
-
-  document.addEventListener('mouseleave', () => {
-    glow.style.opacity = '0';
-  });
-
-  function lerp(a, b, t) { return a + (b - a) * t; }
-
-  function animateGlow() {
-    pos.x = lerp(pos.x, mouse.x, 0.08);
-    pos.y = lerp(pos.y, mouse.y, 0.08);
-    glow.style.left = pos.x + 'px';
-    glow.style.top  = pos.y + 'px';
-    raf = requestAnimationFrame(animateGlow);
+    function tick(now) {
+      var p = Math.min((now - t0) / dur, 1);
+      el.textContent = prefix + Math.round(ease(p) * num) + suffix;
+      if (p < 1) {
+        requestAnimationFrame(tick);
+      } else {
+        el.textContent = original;
+        el.classList.add('popped');
+      }
+    }
+    requestAnimationFrame(tick);
   }
-  animateGlow();
-}
+
+  var heroStats = document.querySelector('.hero__stats');
+  if (heroStats) {
+    var statsDone = false;
+    new IntersectionObserver(function (entries) {
+      if (!entries[0].isIntersecting || statsDone) return;
+      statsDone = true;
+      setTimeout(function () {
+        document.querySelectorAll('.hero__stat-num').forEach(function (el, i) {
+          setTimeout(function () { animateCounter(el); }, i * 160);
+        });
+      }, 350);
+    }, { threshold: 0.6 }).observe(heroStats);
+  }
+
+  /* ───────────────────────────────────────────────────────────
+     7. HERO SPOTLIGHT — luce che segue il cursore nella hero
+     Solo su dispositivi con mouse preciso (pointer: fine).
+     Il cursor glow globale si spegne mentre si è nella hero.
+     ───────────────────────────────────────────────────────── */
+  /* Spotlight: funziona su qualsiasi dispositivo con mouse
+     Non dipende da pointer:fine per evitare falsi negativi su localhost */
+  var heroSection = document.getElementById('hero');
+  var spotlight   = document.getElementById('heroSpotlight');
+
+  if (heroSection && spotlight) {
+    var slrp = function (a, b, t) { return a + (b - a) * t; };
+    var hw = 350; // metà larghezza spotlight (700px / 2)
+    var hh = 350; // metà altezza spotlight
+
+    var smouse     = { x: 0, y: 0 };
+    var spos       = { x: 0, y: 0 };
+    var sraf       = null;
+    var insideHero = false;
+    var started    = false;
+
+    // Centra lo spotlight al centro della hero
+    function spotlightCenter() {
+      var r = heroSection.getBoundingClientRect();
+      smouse.x = spos.x = r.width  / 2;
+      smouse.y = spos.y = r.height / 2;
+      spotlight.style.transform = 'translate(' + (spos.x - hw) + 'px,' + (spos.y - hh) + 'px)';
+    }
+
+    // Loop lerp: muove morbidamente verso il target
+    function spotlightLoop() {
+      spos.x = slrp(spos.x, smouse.x, 0.065);
+      spos.y = slrp(spos.y, smouse.y, 0.065);
+      spotlight.style.transform = 'translate(' + (spos.x - hw) + 'px,' + (spos.y - hh) + 'px)';
+      sraf = requestAnimationFrame(spotlightLoop);
+    }
+
+    // Inizializza centrato
+    spotlightCenter();
+    // Avvia subito il loop — lo spotlight è sempre pronto
+    spotlightLoop();
+
+    // Ascolta mousemove su window: più affidabile di mouseenter
+    window.addEventListener('mousemove', function (e) {
+      var r      = heroSection.getBoundingClientRect();
+      var x      = e.clientX - r.left;
+      var y      = e.clientY - r.top;
+      var inside = (x >= 0 && x <= r.width && y >= 0 && y <= r.height);
+
+      if (inside) {
+        smouse.x = x;
+        smouse.y = y;
+        if (!insideHero) {
+          insideHero = true;
+          // Salta subito al punto di entrata senza lag
+          spos.x = x;
+          spos.y = y;
+          spotlight.classList.add('active');
+        }
+      } else {
+        if (insideHero) {
+          insideHero = false;
+          spotlight.classList.remove('active');
+        }
+      }
+    }, { passive: true });
+  }
+
+  var hasMouse = window.matchMedia('(pointer: fine)').matches;
+
+  if (hasMouse) {
+
+    /* ─────────────────────────────────────────────────────────
+       8. CURSOR GLOW GLOBALE — più sottile, si nasconde nella hero
+       ───────────────────────────────────────────────────────── */
+    var cursorGlow = document.createElement('div');
+    cursorGlow.setAttribute('aria-hidden', 'true');
+    cursorGlow.style.cssText = [
+      'position:fixed',
+      'width:280px',
+      'height:280px',
+      'border-radius:50%',
+      'background:radial-gradient(circle,rgba(56,189,248,0.032) 0%,transparent 70%)',
+      'pointer-events:none',
+      'z-index:9998',
+      'transform:translate(-50%,-50%)',
+      'will-change:left,top',
+      'transition:opacity 0.35s ease',
+      'opacity:0',
+    ].join(';');
+    document.body.appendChild(cursorGlow);
+
+    var cgMouse  = { x: 0, y: 0 };
+    var cgPos    = { x: 0, y: 0 };
+    var cgLerp   = function (a, b, t) { return a + (b - a) * t; };
+
+    document.addEventListener('mousemove', function (e) {
+      cgMouse.x = e.clientX;
+      cgMouse.y = e.clientY;
+      // nella hero lo spotlight è sufficiente — nascondi il glow globale
+      var inHero = heroSection && heroSection.matches(':hover');
+      cursorGlow.style.opacity = inHero ? '0' : '1';
+    }, { passive: true });
+
+    document.addEventListener('mouseleave', function () {
+      cursorGlow.style.opacity = '0';
+    });
+
+    (function cgLoop() {
+      cgPos.x = cgLerp(cgPos.x, cgMouse.x, 0.075);
+      cgPos.y = cgLerp(cgPos.y, cgMouse.y, 0.075);
+      cursorGlow.style.left = cgPos.x + 'px';
+      cursorGlow.style.top  = cgPos.y + 'px';
+      requestAnimationFrame(cgLoop);
+    })();
+  }
+
+  /* ───────────────────────────────────────────────────────────
+     9. CARD TILT 3D — solo desktop ≥ 901px con mouse preciso
+     ───────────────────────────────────────────────────────── */
+  if (hasMouse && window.matchMedia('(min-width: 901px)').matches) {
+    document.querySelectorAll('.card--service, .card--project').forEach(function (card) {
+      card.addEventListener('mousemove', function (e) {
+        var r  = card.getBoundingClientRect();
+        var dx = ((e.clientX - r.left) / r.width  - 0.5) * 2;
+        var dy = ((e.clientY - r.top)  / r.height - 0.5) * 2;
+        card.style.transform  = 'translateY(-6px) scale(1.025) rotateX(' + (dy * -4.5) + 'deg) rotateY(' + (dx * 4.5) + 'deg)';
+        card.style.transition = 'transform 0.08s ease';
+      });
+      card.addEventListener('mouseleave', function () {
+        card.style.transform  = '';
+        card.style.transition = 'transform 0.38s cubic-bezier(0.4,0,0.2,1)';
+      });
+    });
+  }
+
+  /* ───────────────────────────────────────────────────────────
+     10. REDUCED MOTION — mostra subito tutto se l'utente
+         ha disabilitato le animazioni nel sistema operativo
+     ───────────────────────────────────────────────────────── */
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    document.querySelectorAll('.reveal').forEach(function (el) {
+      el.classList.add('visible');
+    });
+  }
+
+}); // fine ready()

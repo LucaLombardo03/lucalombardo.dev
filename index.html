@@ -3,603 +3,334 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- ░░ PRIMARY SEO ░░ -->
+    <title>
+      Luca Lombardo — Web Developer &amp; Landing Page Specialist | Brescia
+    </title>
     <meta
       name="description"
-      content="Luca Lombardo — Web Developer specializing in high-performance landing pages that convert. Based in Brescia, Italy."
+      content="Luca Lombardo — Web developer based in Brescia, Italy. I build high-performance, responsive landing pages and business websites that convert visitors into customers. Available for freelance projects."
+    />
+    <meta
+      name="keywords"
+      content="web developer Brescia, landing page developer Italy, freelance web developer, responsive landing pages, HTML CSS JavaScript developer, siti web Brescia, landing page freelance"
     />
     <meta name="author" content="Luca Lombardo" />
-    <meta property="og:title" content="Luca Lombardo — Web Developer" />
+    <meta name="robots" content="index, follow" />
+    <meta name="theme-color" content="#060d1a" />
+    <link rel="canonical" href="https://lucalombardo.dev/" />
+
+    <!-- ░░ OPEN GRAPH (Facebook, LinkedIn, WhatsApp) ░░ -->
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Luca Lombardo" />
+    <meta
+      property="og:title"
+      content="Luca Lombardo — Web Developer &amp; Landing Page Specialist"
+    />
     <meta
       property="og:description"
-      content="I design high-performance landing pages that turn visitors into customers."
+      content="I build high-performance landing pages that turn visitors into customers. Based in Brescia, Italy. Available for freelance work."
     />
-    <meta property="og:url" content="https://lucalombardo.dev" />
-    <title>Luca Lombardo — Web Developer</title>
-    <link rel="stylesheet" href="style.css" />
+    <meta property="og:url" content="https://lucalombardo.dev/" />
+    <meta property="og:image" content="https://lucalombardo.dev/og-image.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:locale" content="en_US" />
+
+    <!-- ░░ TWITTER / X CARD ░░ -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta
+      name="twitter:title"
+      content="Luca Lombardo — Web Developer &amp; Landing Page Specialist"
+    />
+    <meta
+      name="twitter:description"
+      content="I build high-performance landing pages that turn visitors into customers. Based in Brescia, Italy."
+    />
+    <meta
+      name="twitter:image"
+      content="https://lucalombardo.dev/og-image.png"
+    />
+
+    <!-- ░░ FAVICON ░░ -->
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" type="image/png" href="/favicon.png" sizes="32x32" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" sizes="180x180" />
+    <link rel="manifest" href="/site.webmanifest" />
+
+    <!-- ░░ STRUCTURED DATA — Person + WebSite ░░ -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@graph": [
+          {
+            "@type": "Person",
+            "@id": "https://lucalombardo.dev/#person",
+            "name": "Luca Lombardo",
+            "url": "https://lucalombardo.dev/",
+            "jobTitle": "Web Developer",
+            "description": "Web developer and IT system administrator based in Brescia, Italy, specializing in high-performance landing pages and business websites.",
+            "address": {
+              "@type": "PostalAddress",
+              "addressLocality": "Brescia",
+              "addressCountry": "IT"
+            },
+            "sameAs": [
+              "https://github.com/lucalombardo",
+              "https://linkedin.com/in/lucalombardo"
+            ],
+            "knowsAbout": [
+              "HTML",
+              "CSS",
+              "JavaScript",
+              "Laravel",
+              "Web Performance",
+              "Landing Pages"
+            ],
+            "email": "luca@lucalombardo.dev"
+          },
+          {
+            "@type": "WebSite",
+            "@id": "https://lucalombardo.dev/#website",
+            "url": "https://lucalombardo.dev/",
+            "name": "Luca Lombardo — Web Developer",
+            "description": "Portfolio and freelance contact page of Luca Lombardo, web developer based in Brescia, Italy.",
+            "author": { "@id": "https://lucalombardo.dev/#person" },
+            "inLanguage": "en"
+          },
+          {
+            "@type": "ProfessionalService",
+            "@id": "https://lucalombardo.dev/#service",
+            "name": "Luca Lombardo Web Development",
+            "url": "https://lucalombardo.dev/",
+            "provider": { "@id": "https://lucalombardo.dev/#person" },
+            "areaServed": ["IT", "EU"],
+            "serviceType": [
+              "Landing Page Development",
+              "Business Website Development",
+              "Web Performance Optimization"
+            ],
+            "availableLanguage": ["Italian", "English"]
+          }
+        ]
+      }
+    </script>
+
+    <!-- ░░ PERFORMANCE ░░ -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Mono:ital,wght@0,300;0,400;0,500;1,300&display=swap"
+      rel="preload"
+      as="style"
+      href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=DM+Mono:wght@0,400;0,500&display=swap"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=DM+Mono:wght@0,400;0,500&display=swap"
       rel="stylesheet"
     />
+    <link rel="stylesheet" href="style.css" />
   </head>
   <body>
     <!-- ░░ NAV ░░ -->
-    <nav class="nav" id="nav">
-      <div class="nav__inner">
-        <a href="#hero" class="nav__logo">LL<span class="accent">.</span></a>
-        <button
-          class="nav__burger"
-          id="burger"
-          aria-label="Toggle menu"
-          aria-expanded="false"
-        >
-          <span></span><span></span><span></span>
-        </button>
-        <ul class="nav__links" id="navLinks">
-          <li><a href="#about">About</a></li>
-          <li><a href="#services">Services</a></li>
-          <li><a href="#stack">Stack</a></li>
-          <li><a href="#projects">Projects</a></li>
-          <li><a href="#contact" class="nav__cta">Contact</a></li>
-        </ul>
-      </div>
-    </nav>
-
-    <!-- ░░ HERO ░░ -->
-    <section class="hero" id="hero">
-      <div class="hero__bg-grid"></div>
-      <div class="hero__glow"></div>
-
-      <div class="hero__inner">
-        <!-- LEFT: main content -->
-        <div class="hero__content">
-          <p class="hero__eyebrow">
-            <span class="dot"></span> Available for freelance work
-          </p>
-          <h1 class="hero__name">Luca<br />Lombardo</h1>
-          <div class="hero__roles">
-            <span class="role">Landing Page Developer</span>
-            <span class="separator">/</span>
-            <span class="role">Web Performance Specialist</span>
-          </div>
-          <p class="hero__desc">
-            I design <strong>high-performance landing pages</strong> that turn
-            visitors into customers — clean code, fast load times, and
-            results-driven layouts.
-          </p>
-
-          <!-- location + stats pill on the same row -->
-          <div class="hero__meta">
-            <p class="hero__location">
-              <svg
-                width="14"
-                height="14"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                stroke-width="2"
-                aria-hidden="true"
-              >
-                <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" />
-                <circle cx="12" cy="10" r="3" />
-              </svg>
-              Brescia, Italy
-            </p>
-            <div class="hero__stats">
-              <div class="hero__stat">
-                <span class="hero__stat-num">100%</span>
-                <span class="hero__stat-label">Responsive</span>
-              </div>
-              <div class="hero__stat-divider"></div>
-              <div class="hero__stat">
-                <span class="hero__stat-num">&lt;2s</span>
-                <span class="hero__stat-label">Load Time</span>
-              </div>
-              <div class="hero__stat-divider"></div>
-              <div class="hero__stat">
-                <span class="hero__stat-num">0</span>
-                <span class="hero__stat-label">Dependencies</span>
-              </div>
-            </div>
-          </div>
-
-          <div class="hero__buttons">
-            <a href="#projects" class="btn btn--primary">
-              View Projects
-              <svg
-                width="16"
-                height="16"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                stroke-width="2"
-                aria-hidden="true"
-              >
-                <line x1="5" y1="12" x2="19" y2="12" />
-                <polyline points="12 5 19 12 12 19" />
-              </svg>
-            </a>
-            <a href="#contact" class="btn btn--outline">Contact Me</a>
-          </div>
-        </div>
-
-        <!-- RIGHT: code block decoration -->
-        <div class="hero__code-block" aria-hidden="true">
-          <span class="code-line"
-            ><span class="c-keyword">const</span>
-            <span class="c-var">developer</span> = {</span
+    <header>
+      <nav class="nav" id="nav">
+        <div class="nav__inner">
+          <a href="#hero" class="nav__logo">LL<span class="accent">.</span></a>
+          <button
+            class="nav__burger"
+            id="burger"
+            aria-label="Toggle menu"
+            aria-expanded="false"
           >
-          <span class="code-line"
-            >&nbsp;&nbsp;<span class="c-prop">name</span>:
-            <span class="c-string">"Luca Lombardo"</span>,</span
-          >
-          <span class="code-line"
-            >&nbsp;&nbsp;<span class="c-prop">focus</span>:
-            <span class="c-string">"performance &amp; conversion"</span>,</span
-          >
-          <span class="code-line"
-            >&nbsp;&nbsp;<span class="c-prop">available</span>:
-            <span class="c-bool">true</span></span
-          >
-          <span class="code-line">};</span>
+            <span></span><span></span><span></span>
+          </button>
+          <ul class="nav__links" id="navLinks">
+            <li><a href="#about">About</a></li>
+            <li><a href="#services">Services</a></li>
+            <li><a href="#stack">Stack</a></li>
+            <li><a href="#projects">Projects</a></li>
+            <li><a href="#contact" class="nav__cta">Contact</a></li>
+          </ul>
         </div>
-      </div>
+      </nav>
+    </header>
 
-      <div class="hero__scroll" aria-hidden="true">
-        <span>scroll</span>
-        <div class="hero__scroll-line"></div>
-      </div>
-    </section>
+    <main>
+      <!-- ░░ HERO ░░ -->
+      <section class="hero" id="hero">
+        <div class="hero__bg-grid"></div>
+        <div
+          class="hero__spotlight"
+          id="heroSpotlight"
+          aria-hidden="true"
+        ></div>
 
-    <!-- ░░ ABOUT ░░ -->
-    <section class="about section" id="about">
-      <div class="container">
-        <div class="about__inner">
-          <div class="about__left">
-            <p class="section__label">01 — About</p>
-            <h2 class="section__title">About<br />Me</h2>
-            <a href="mailto:luca@lucalombardo.dev" class="about__email-btn">
-              Get in touch
-              <svg
-                width="14"
-                height="14"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                stroke-width="2"
-                aria-hidden="true"
-              >
-                <line x1="5" y1="12" x2="19" y2="12" />
-                <polyline points="12 5 19 12 12 19" />
-              </svg>
-            </a>
-          </div>
-          <div class="about__right">
-            <p class="about__text">
-              I'm a <strong>Computer Engineering student</strong> and web
-              developer based in <strong>Brescia, Italy</strong>. I combine
-              technical precision with a sharp eye for design to build pages
-              that actually perform.
+        <div class="hero__inner">
+          <!-- LEFT: main content -->
+          <div class="hero__content">
+            <p class="hero__eyebrow">
+              <span class="dot"></span> Available for freelance work
             </p>
-            <p class="about__text">
-              Alongside web development, I work as an
-              <strong>IT system administrator</strong> — which gives me a deep
-              understanding of infrastructure, performance, and how the web
-              really works under the hood.
+            <h1 class="hero__name">Luca<br />Lombardo</h1>
+            <div class="hero__roles">
+              <span class="role">Web Developer</span>
+              <span class="separator">/</span>
+              <span class="role">IT System Administrator</span>
+            </div>
+            <p class="hero__desc">
+              I design <strong>high-performance landing pages</strong> that turn
+              visitors into customers — clean code, fast load times, and
+              results-driven layouts.
             </p>
-            <p class="about__text">
-              My goal is simple: build pages that load fast, look great on every
-              device, and <em>convert visitors into customers</em>.
-            </p>
-            <div class="about__tags">
-              <span class="tag">Web Developer</span>
-              <span class="tag">IT SysAdmin</span>
-              <span class="tag">Brescia, Italy</span>
-              <span class="tag">Open to Freelance</span>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
 
-    <!-- ░░ SERVICES ░░ -->
-    <section class="services section" id="services">
-      <div class="container">
-        <p class="section__label centered">02 — Services</p>
-        <h2 class="section__title centered">What I Do</h2>
-        <div class="services__grid">
-          <div class="card card--service">
-            <div class="card__number">01</div>
-            <div class="card__icon">
-              <svg
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                stroke-width="1.5"
-                aria-hidden="true"
-              >
-                <rect x="2" y="3" width="20" height="14" rx="2" />
-                <path d="M8 21h8M12 17v4" />
-              </svg>
-            </div>
-            <h3 class="card__title">Landing Pages</h3>
-            <p class="card__desc">
-              High-performance landing pages engineered for conversion. Fast
-              load times, persuasive layouts and pixel-perfect responsiveness.
-            </p>
-          </div>
-
-          <div class="card card--service">
-            <div class="card__number">02</div>
-            <div class="card__icon">
-              <svg
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                stroke-width="1.5"
-                aria-hidden="true"
-              >
-                <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" />
-                <polyline points="9 22 9 12 15 12 15 22" />
-              </svg>
-            </div>
-            <h3 class="card__title">Business Websites</h3>
-            <p class="card__desc">
-              Clean, professional websites for small companies — easy to
-              maintain, easy to grow, and built to impress clients.
-            </p>
-          </div>
-
-          <div class="card card--service">
-            <div class="card__number">03</div>
-            <div class="card__icon">
-              <svg
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                stroke-width="1.5"
-                aria-hidden="true"
-              >
-                <polyline points="13 2 3 14 12 14 11 22 21 10 12 10 13 2" />
-              </svg>
-            </div>
-            <h3 class="card__title">Performance Optimization</h3>
-            <p class="card__desc">
-              Faster load times, better Core Web Vitals scores and improved SEO
-              — turning slow pages into competitive assets.
-            </p>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- ░░ TECH STACK ░░ -->
-    <section class="stack section" id="stack">
-      <div class="container">
-        <p class="section__label centered">03 — Tools</p>
-        <h2 class="section__title centered">Tech Stack</h2>
-        <div class="stack__grid">
-          <div class="stack__item">
-            <div class="stack__icon-wrap">
-              <svg class="stack__icon" viewBox="0 0 32 32" aria-label="HTML5">
-                <path fill="#e34f26" d="M5 3l1.8 20.2L16 26l9.2-2.8L27 3z" />
-                <path fill="#ef652a" d="M16 24.5V5H5.7L7.3 23.2z" />
-                <path
-                  fill="#fff"
-                  d="M16 12.5h4.5l.3-3.5H16v-3.5h8.5l-.1 1.5-1 11.5H16z"
-                />
-                <path
-                  fill="#ebebeb"
-                  d="M16 18.5l-.1.1L12.3 17.5l-.2-2.5H8.6l.4 5 7 1.9h.1v-3.4z"
-                />
-                <path fill="#fff" d="M16 12.5v3.5h-4.2l-.3-3.5z" />
-                <path fill="#ebebeb" d="M16 8.5v3.5H8l-.3-3.5z" />
-              </svg>
-            </div>
-            <span>HTML</span>
-          </div>
-
-          <div class="stack__item">
-            <div class="stack__icon-wrap">
-              <svg class="stack__icon" viewBox="0 0 32 32" aria-label="CSS3">
-                <path fill="#1572b6" d="M5 3l1.8 20.2L16 26l9.2-2.8L27 3z" />
-                <path fill="#33a9dc" d="M16 24.5V5h9.3L23.7 23.2z" />
-                <path
-                  fill="#fff"
-                  d="M16 12.5h-4.5l-.2-2.5h4.7V6.5H7.5l.2 1.5 1.5 11.5h6.8z"
-                />
-                <path
-                  fill="#ebebeb"
-                  d="M16 19.4l-.1.1-3.6-1-.2-2.5H8.6l.5 5.5 6.9 1.9.1-.1z"
-                />
-                <path
-                  fill="#fff"
-                  d="M16 12.5v3.5h4.1l-.4 4-3.7 1v3.4l6.9-1.9.1-.9 1-11.2.1-1.5H16z"
-                />
-              </svg>
-            </div>
-            <span>CSS</span>
-          </div>
-
-          <div class="stack__item">
-            <div class="stack__icon-wrap">
-              <svg
-                class="stack__icon"
-                viewBox="0 0 32 32"
-                aria-label="JavaScript"
-              >
-                <path fill="#f7df1e" d="M2 2h28v28H2z" />
-                <path
-                  d="M20.8 23.4c.5.8 1.1 1.4 2.2 1.4 1 0 1.6-.5 1.6-1.1 0-.8-.6-1-1.7-1.5l-.6-.2c-1.7-.7-2.7-1.6-2.7-3.4 0-1.7 1.3-3 3.3-3 1.4 0 2.4.5 3.1 1.8l-1.7 1.1c-.4-.7-.8-1-1.4-1-.6 0-1 .4-1 1 0 .7.4 1 1.5 1.4l.6.3c2 .8 3 1.8 3 3.6 0 2-1.6 3.2-3.7 3.2-2.1 0-3.4-1-4.1-2.3zm-8.3.2c.4.6.7 1.2 1.5 1.2.8 0 1.2-.3 1.2-1.4v-7.5h2.1v7.5c0 2.3-1.3 3.3-3.2 3.3-1.7 0-2.7-.9-3.2-2z"
-                />
-              </svg>
-            </div>
-            <span>JavaScript</span>
-          </div>
-
-          <div class="stack__item">
-            <div class="stack__icon-wrap">
-              <svg class="stack__icon" viewBox="0 0 32 32" aria-label="Git">
-                <path
-                  fill="#f05133"
-                  d="M29.47 14.6L17.39 2.53a1.81 1.81 0 00-2.56 0L12.29 5.07l3.23 3.23a2.15 2.15 0 012.72 2.74l3.11 3.11a2.15 2.15 0 11-1.29 1.21l-2.9-2.9v7.62a2.15 2.15 0 11-1.77-.06V12.2a2.15 2.15 0 01-1.17-2.82L10.99 6.17l-8.46 8.45a1.81 1.81 0 000 2.56L14.6 29.47a1.81 1.81 0 002.56 0L29.47 17.16a1.81 1.81 0 000-2.56z"
-                />
-              </svg>
-            </div>
-            <span>Git</span>
-          </div>
-
-          <div class="stack__item">
-            <div class="stack__icon-wrap">
-              <svg
-                class="stack__icon"
-                viewBox="0 0 24 24"
-                aria-label="GitHub"
-                fill="currentColor"
-                style="color: #fff"
-              >
-                <path
-                  d="M12 0C5.374 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0 1 12 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z"
-                />
-              </svg>
-            </div>
-            <span>GitHub</span>
-          </div>
-
-          <div class="stack__item">
-            <div class="stack__icon-wrap">
-              <svg
-                class="stack__icon"
-                viewBox="0 0 50 52"
-                aria-label="Laravel"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  d="M49.626 11.564a.809.809 0 0 1 .028.209v10.972a.8.8 0 0 1-.402.694l-9.209 5.302-.026.016v10.417a.8.8 0 0 1-.402.694L20.56 51.411a.802.802 0 0 1-.195.066c-.007.002-.013.007-.02.008a.808.808 0 0 1-.41 0c-.007-.001-.013-.006-.02-.008a.799.799 0 0 1-.195-.066L.402 39.868A.8.8 0 0 1 0 39.175V6.4c0-.073.01-.146.028-.209.006-.02.018-.037.025-.056.012-.033.023-.066.041-.096.014-.024.035-.043.052-.065.02-.028.038-.057.062-.08.018-.017.041-.03.062-.045.024-.018.046-.039.073-.052l9.813-5.257a.802.802 0 0 1 .766 0l9.813 5.257c.027.013.049.034.073.052.02.015.044.028.062.045.024.023.042.052.062.08.017.022.038.041.052.065.018.03.029.063.041.096.007.019.019.036.025.056zm-1.601 10.418v-9.15l-3.957 2.277-5.252 3.025v9.15l9.21-5.302zm-10.211 17.96v-9.15l-5.167 2.966-14.768 8.496v9.241l19.935-11.553zM1.602 7.719v31.456L21.537 50.73v-9.242l-10.392-5.966-.002-.001-.002-.002c-.027-.014-.048-.034-.072-.052-.02-.015-.044-.027-.061-.045l-.002-.003c-.021-.022-.039-.05-.059-.078-.015-.022-.035-.041-.048-.065l-.001-.002c-.017-.028-.026-.061-.038-.092-.008-.02-.019-.038-.025-.058-.012-.038-.016-.078-.02-.119-.003-.017-.009-.033-.01-.051V14.439L9.81 11.414 1.602 7.719zm8.81-5.994L1.602 6.4l8.608 3.714 8.608-3.714-8.608-4.675zm4.978 17.29l5.252-3.025-3.957-2.278-5.253 3.026 3.958 2.277zm14.287-6.305l-9.012 5.19v10.371l3.657-2.101 5.355-3.073V12.71zm-10.613 18.321l14.232-8.193 7.585-4.361-8.586-4.644-9.03 5.193-14.87 8.55 10.67 3.455z"
-                  fill="#FF2D20"
-                />
-              </svg>
-            </div>
-            <span>Laravel</span>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- ░░ PROJECTS ░░ -->
-    <section class="projects section" id="projects">
-      <div class="container">
-        <p class="section__label centered">04 — Work</p>
-        <h2 class="section__title centered">Projects</h2>
-        <div class="projects__grid">
-          <article class="card card--project">
-            <div class="card__preview" aria-hidden="true">
-              <div class="card__preview-mock">
-                <div class="mock__bar">
-                  <span></span><span></span><span></span>
-                </div>
-                <div class="mock__content">
-                  <div class="mock__hero-block"></div>
-                  <div class="mock__line" style="width: 85%"></div>
-                  <div class="mock__line" style="width: 65%"></div>
-                  <div class="mock__cta"></div>
-                </div>
-              </div>
-              <div class="card__preview-overlay">
-                <a
-                  href="#"
-                  class="card__btn card__btn--demo"
-                  target="_blank"
-                  rel="noopener"
+            <!-- location + stats pill on the same row -->
+            <div class="hero__meta">
+              <p class="hero__location">
+                <svg
+                  width="14"
+                  height="14"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  aria-hidden="true"
                 >
-                  <svg
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    stroke-width="2"
-                  >
-                    <path
-                      d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"
-                    />
-                    <polyline points="15 3 21 3 21 9" />
-                    <line x1="10" y1="14" x2="21" y2="3" />
-                  </svg>
-                  Live Demo
-                </a>
-                <a
-                  href="#"
-                  class="card__btn card__btn--code"
-                  target="_blank"
-                  rel="noopener"
-                >
-                  <svg viewBox="0 0 24 24" fill="currentColor">
-                    <path
-                      d="M12 0C5.374 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0 1 12 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z"
-                    />
-                  </svg>
-                  Source
-                </a>
-              </div>
-            </div>
-            <div class="card__body">
-              <h3 class="card__title">Landing Page Example</h3>
-              <p class="card__desc">
-                Mobile-first landing page for a local business. Focused on
-                conversion, fast load times and clean visual hierarchy.
+                  <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" />
+                  <circle cx="12" cy="10" r="3" />
+                </svg>
+                Brescia, Italy
               </p>
-              <div class="card__tags">
-                <span class="tag tag--sm">HTML</span>
-                <span class="tag tag--sm">CSS</span>
-                <span class="tag tag--sm">JavaScript</span>
+              <div class="hero__stats">
+                <div class="hero__stat">
+                  <span class="hero__stat-num">100%</span>
+                  <span class="hero__stat-label">Responsive</span>
+                </div>
+                <div class="hero__stat-divider"></div>
+                <div class="hero__stat">
+                  <span class="hero__stat-num">&lt;2s</span>
+                  <span class="hero__stat-label">Load Time</span>
+                </div>
+                <div class="hero__stat-divider"></div>
+                <div class="hero__stat">
+                  <span class="hero__stat-num">0</span>
+                  <span class="hero__stat-label">Dependencies</span>
+                </div>
               </div>
             </div>
-          </article>
 
-          <article class="card card--project">
-            <div class="card__preview" aria-hidden="true">
-              <div class="card__preview-mock">
-                <div class="mock__bar">
-                  <span></span><span></span><span></span>
-                </div>
-                <div class="mock__content">
-                  <div class="mock__hero-block" style="height: 36px"></div>
-                  <div class="mock__line" style="width: 70%"></div>
-                  <div class="mock__line" style="width: 50%"></div>
-                  <div class="mock__cta" style="width: 80px"></div>
-                </div>
-              </div>
-              <div class="card__preview-overlay">
-                <a
-                  href="#"
-                  class="card__btn card__btn--demo"
-                  target="_blank"
-                  rel="noopener"
+            <div class="hero__buttons">
+              <a href="#projects" class="btn btn--primary">
+                View Projects
+                <svg
+                  width="16"
+                  height="16"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  aria-hidden="true"
                 >
-                  <svg
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    stroke-width="2"
-                  >
-                    <path
-                      d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"
-                    />
-                    <polyline points="15 3 21 3 21 9" />
-                    <line x1="10" y1="14" x2="21" y2="3" />
-                  </svg>
-                  Live Demo
-                </a>
-                <a
-                  href="#"
-                  class="card__btn card__btn--code"
-                  target="_blank"
-                  rel="noopener"
-                >
-                  <svg viewBox="0 0 24 24" fill="currentColor">
-                    <path
-                      d="M12 0C5.374 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0 1 12 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z"
-                    />
-                  </svg>
-                  Source
-                </a>
-              </div>
+                  <line x1="5" y1="12" x2="19" y2="12" />
+                  <polyline points="12 5 19 12 12 19" />
+                </svg>
+              </a>
+              <a href="#contact" class="btn btn--outline">Contact Me</a>
             </div>
-            <div class="card__body">
-              <h3 class="card__title">Portfolio Website</h3>
-              <p class="card__desc">
-                Personal developer portfolio. Dark theme, scroll animations,
-                Intersection Observer reveals and zero dependencies.
-              </p>
-              <div class="card__tags">
-                <span class="tag tag--sm">HTML</span>
-                <span class="tag tag--sm">CSS</span>
-                <span class="tag tag--sm">JavaScript</span>
-              </div>
-            </div>
-          </article>
+          </div>
 
-          <article class="card card--project">
-            <div class="card__preview" aria-hidden="true">
-              <div class="card__preview-mock">
-                <div class="mock__bar">
-                  <span></span><span></span><span></span>
-                </div>
-                <div class="mock__content">
-                  <div class="mock__hero-block" style="height: 44px"></div>
-                  <div class="mock__line" style="width: 60%"></div>
-                  <div class="mock__line" style="width: 80%"></div>
-                  <div class="mock__cta" style="width: 100px"></div>
-                </div>
-              </div>
-              <div class="card__preview-overlay">
-                <a
-                  href="#"
-                  class="card__btn card__btn--demo"
-                  target="_blank"
-                  rel="noopener"
-                >
-                  <svg
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    stroke-width="2"
-                  >
-                    <path
-                      d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"
-                    />
-                    <polyline points="15 3 21 3 21 9" />
-                    <line x1="10" y1="14" x2="21" y2="3" />
-                  </svg>
-                  Live Demo
-                </a>
-                <a
-                  href="#"
-                  class="card__btn card__btn--code"
-                  target="_blank"
-                  rel="noopener"
-                >
-                  <svg viewBox="0 0 24 24" fill="currentColor">
-                    <path
-                      d="M12 0C5.374 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0 1 12 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z"
-                    />
-                  </svg>
-                  Source
-                </a>
-              </div>
-            </div>
-            <div class="card__body">
-              <h3 class="card__title">Business Landing Page</h3>
-              <p class="card__desc">
-                Conversion-focused product landing page. Strong CTA structure,
-                optimised performance and backend integration via Laravel.
-              </p>
-              <div class="card__tags">
-                <span class="tag tag--sm">HTML</span>
-                <span class="tag tag--sm">CSS</span>
-                <span class="tag tag--sm">Laravel</span>
-              </div>
-            </div>
-          </article>
+          <!-- RIGHT: code block decoration -->
+          <div class="hero__code-block" aria-hidden="true">
+            <span class="code-line"
+              ><span class="c-keyword">const</span>
+              <span class="c-var">developer</span> = {</span
+            >
+            <span class="code-line"
+              >&nbsp;&nbsp;<span class="c-prop">name</span>:
+              <span class="c-string">"Luca Lombardo"</span>,</span
+            >
+            <span class="code-line"
+              >&nbsp;&nbsp;<span class="c-prop">focus</span>:
+              <span class="c-string">"performance &amp; conversion"</span
+              >,</span
+            >
+            <span class="code-line"
+              >&nbsp;&nbsp;<span class="c-prop">available</span>:
+              <span class="c-bool">true</span></span
+            >
+            <span class="code-line">};</span>
+          </div>
         </div>
-      </div>
-    </section>
 
-    <!-- ░░ CONTACT ░░ -->
-    <section class="contact section" id="contact">
-      <div class="container">
-        <div class="contact__inner">
-          <p class="section__label centered">05 — Contact</p>
-          <h2 class="section__title centered">Let's Work<br />Together</h2>
-          <p class="contact__subtitle">
-            Have a project in mind? I'm available for freelance work — let's
-            build something great.
-          </p>
+        <div class="hero__scroll" aria-hidden="true">
+          <span>scroll</span>
+          <div class="hero__scroll-line"></div>
+        </div>
+      </section>
 
-          <div class="contact__links">
-            <a href="mailto:luca@lucalombardo.dev" class="contact__link">
-              <div class="contact__icon">
+      <!-- ░░ ABOUT ░░ -->
+      <section class="about section" id="about">
+        <div class="container">
+          <div class="about__inner">
+            <div class="about__left">
+              <p class="section__label">01 — About</p>
+              <h2 class="section__title">About<br />Me</h2>
+              <a
+                href="/cdn-cgi/l/email-protection#b1ddc4d2d0f1ddc4d2d0dddedcd3d0c3d5de9fd5d4c7"
+                class="about__email-btn"
+              >
+                Get in touch
+                <svg
+                  width="14"
+                  height="14"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  aria-hidden="true"
+                >
+                  <line x1="5" y1="12" x2="19" y2="12" />
+                  <polyline points="12 5 19 12 12 19" />
+                </svg>
+              </a>
+            </div>
+            <div class="about__right">
+              <p class="about__text">
+                I'm a <strong>Computer Engineering student</strong> and web
+                developer based in <strong>Brescia, Italy</strong>. I combine
+                technical precision with a sharp eye for design to build pages
+                that actually perform.
+              </p>
+              <p class="about__text">
+                Alongside web development, I work as an
+                <strong>IT system administrator</strong> — which gives me a deep
+                understanding of infrastructure, performance, and how the web
+                really works under the hood.
+              </p>
+              <p class="about__text">
+                My goal is simple: build pages that load fast, look great on
+                every device, and <em>convert visitors into customers</em>.
+              </p>
+              <div class="about__tags">
+                <span class="tag">Web Developer</span>
+                <span class="tag">IT SysAdmin</span>
+                <span class="tag">Brescia, Italy</span>
+                <span class="tag">Open to Freelance</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ░░ SERVICES ░░ -->
+      <section class="services section" id="services">
+        <div class="container">
+          <p class="section__label centered">02 — Services</p>
+          <h2 class="section__title centered">What I Do</h2>
+          <div class="services__grid">
+            <div class="card card--service">
+              <div class="card__number">01</div>
+              <div class="card__icon">
                 <svg
                   viewBox="0 0 24 24"
                   fill="none"
@@ -607,92 +338,500 @@
                   stroke-width="1.5"
                   aria-hidden="true"
                 >
-                  <path
-                    d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"
-                  />
-                  <polyline points="22,6 12,13 2,6" />
+                  <rect x="2" y="3" width="20" height="14" rx="2" />
+                  <path d="M8 21h8M12 17v4" />
                 </svg>
               </div>
-              <div class="contact__info">
-                <span class="contact__label">Email</span>
-                <span class="contact__value">luca@lucalombardo.dev</span>
-              </div>
-              <svg
-                class="contact__arrow"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                stroke-width="2"
-                aria-hidden="true"
-              >
-                <line x1="5" y1="12" x2="19" y2="12" />
-                <polyline points="12 5 19 12 12 19" />
-              </svg>
-            </a>
+              <h3 class="card__title">Landing Pages</h3>
+              <p class="card__desc">
+                High-performance landing pages engineered for conversion. Fast
+                load times, persuasive layouts and pixel-perfect responsiveness.
+              </p>
+            </div>
 
-            <a
-              href="https://github.com/lucalombardo"
-              target="_blank"
-              rel="noopener"
-              class="contact__link"
-            >
-              <div class="contact__icon">
-                <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+            <div class="card card--service">
+              <div class="card__number">02</div>
+              <div class="card__icon">
+                <svg
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="1.5"
+                  aria-hidden="true"
+                >
+                  <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" />
+                  <polyline points="9 22 9 12 15 12 15 22" />
+                </svg>
+              </div>
+              <h3 class="card__title">Business Websites</h3>
+              <p class="card__desc">
+                Clean, professional websites for small companies — easy to
+                maintain, easy to grow, and built to impress clients.
+              </p>
+            </div>
+
+            <div class="card card--service">
+              <div class="card__number">03</div>
+              <div class="card__icon">
+                <svg
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="1.5"
+                  aria-hidden="true"
+                >
+                  <polyline points="13 2 3 14 12 14 11 22 21 10 12 10 13 2" />
+                </svg>
+              </div>
+              <h3 class="card__title">Performance Optimization</h3>
+              <p class="card__desc">
+                Faster load times, better Core Web Vitals scores and improved
+                SEO — turning slow pages into competitive assets.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ░░ TECH STACK ░░ -->
+      <section class="stack section" id="stack">
+        <div class="container">
+          <p class="section__label centered">03 — Tools</p>
+          <h2 class="section__title centered">Tech Stack</h2>
+          <div class="stack__grid">
+            <div class="stack__item">
+              <div class="stack__icon-wrap">
+                <svg class="stack__icon" viewBox="0 0 32 32" aria-label="HTML5">
+                  <path fill="#e34f26" d="M5 3l1.8 20.2L16 26l9.2-2.8L27 3z" />
+                  <path fill="#ef652a" d="M16 24.5V5H5.7L7.3 23.2z" />
+                  <path
+                    fill="#fff"
+                    d="M16 12.5h4.5l.3-3.5H16v-3.5h8.5l-.1 1.5-1 11.5H16z"
+                  />
+                  <path
+                    fill="#ebebeb"
+                    d="M16 18.5l-.1.1L12.3 17.5l-.2-2.5H8.6l.4 5 7 1.9h.1v-3.4z"
+                  />
+                  <path fill="#fff" d="M16 12.5v3.5h-4.2l-.3-3.5z" />
+                  <path fill="#ebebeb" d="M16 8.5v3.5H8l-.3-3.5z" />
+                </svg>
+              </div>
+              <span>HTML</span>
+            </div>
+
+            <div class="stack__item">
+              <div class="stack__icon-wrap">
+                <svg class="stack__icon" viewBox="0 0 32 32" aria-label="CSS3">
+                  <path fill="#1572b6" d="M5 3l1.8 20.2L16 26l9.2-2.8L27 3z" />
+                  <path fill="#33a9dc" d="M16 24.5V5h9.3L23.7 23.2z" />
+                  <path
+                    fill="#fff"
+                    d="M16 12.5h-4.5l-.2-2.5h4.7V6.5H7.5l.2 1.5 1.5 11.5h6.8z"
+                  />
+                  <path
+                    fill="#ebebeb"
+                    d="M16 19.4l-.1.1-3.6-1-.2-2.5H8.6l.5 5.5 6.9 1.9.1-.1z"
+                  />
+                  <path
+                    fill="#fff"
+                    d="M16 12.5v3.5h4.1l-.4 4-3.7 1v3.4l6.9-1.9.1-.9 1-11.2.1-1.5H16z"
+                  />
+                </svg>
+              </div>
+              <span>CSS</span>
+            </div>
+
+            <div class="stack__item">
+              <div class="stack__icon-wrap">
+                <svg
+                  class="stack__icon"
+                  viewBox="0 0 32 32"
+                  aria-label="JavaScript"
+                >
+                  <path fill="#f7df1e" d="M2 2h28v28H2z" />
+                  <path
+                    d="M20.8 23.4c.5.8 1.1 1.4 2.2 1.4 1 0 1.6-.5 1.6-1.1 0-.8-.6-1-1.7-1.5l-.6-.2c-1.7-.7-2.7-1.6-2.7-3.4 0-1.7 1.3-3 3.3-3 1.4 0 2.4.5 3.1 1.8l-1.7 1.1c-.4-.7-.8-1-1.4-1-.6 0-1 .4-1 1 0 .7.4 1 1.5 1.4l.6.3c2 .8 3 1.8 3 3.6 0 2-1.6 3.2-3.7 3.2-2.1 0-3.4-1-4.1-2.3zm-8.3.2c.4.6.7 1.2 1.5 1.2.8 0 1.2-.3 1.2-1.4v-7.5h2.1v7.5c0 2.3-1.3 3.3-3.2 3.3-1.7 0-2.7-.9-3.2-2z"
+                  />
+                </svg>
+              </div>
+              <span>JavaScript</span>
+            </div>
+
+            <div class="stack__item">
+              <div class="stack__icon-wrap">
+                <svg class="stack__icon" viewBox="0 0 32 32" aria-label="Git">
+                  <path
+                    fill="#f05133"
+                    d="M29.47 14.6L17.39 2.53a1.81 1.81 0 00-2.56 0L12.29 5.07l3.23 3.23a2.15 2.15 0 012.72 2.74l3.11 3.11a2.15 2.15 0 11-1.29 1.21l-2.9-2.9v7.62a2.15 2.15 0 11-1.77-.06V12.2a2.15 2.15 0 01-1.17-2.82L10.99 6.17l-8.46 8.45a1.81 1.81 0 000 2.56L14.6 29.47a1.81 1.81 0 002.56 0L29.47 17.16a1.81 1.81 0 000-2.56z"
+                  />
+                </svg>
+              </div>
+              <span>Git</span>
+            </div>
+
+            <div class="stack__item">
+              <div class="stack__icon-wrap">
+                <svg
+                  class="stack__icon"
+                  viewBox="0 0 24 24"
+                  aria-label="GitHub"
+                  fill="currentColor"
+                  style="color: #fff"
+                >
                   <path
                     d="M12 0C5.374 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0 1 12 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z"
                   />
                 </svg>
               </div>
-              <div class="contact__info">
-                <span class="contact__label">GitHub</span>
-                <span class="contact__value">github.com/lucalombardo</span>
-              </div>
-              <svg
-                class="contact__arrow"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                stroke-width="2"
-                aria-hidden="true"
-              >
-                <line x1="5" y1="12" x2="19" y2="12" />
-                <polyline points="12 5 19 12 12 19" />
-              </svg>
-            </a>
+              <span>GitHub</span>
+            </div>
 
-            <a
-              href="https://linkedin.com/in/lucalombardo"
-              target="_blank"
-              rel="noopener"
-              class="contact__link"
-            >
-              <div class="contact__icon">
-                <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+            <div class="stack__item">
+              <div class="stack__icon-wrap">
+                <svg
+                  class="stack__icon"
+                  viewBox="0 0 50 52"
+                  aria-label="Laravel"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
                   <path
-                    d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"
+                    d="M49.626 11.564a.809.809 0 0 1 .028.209v10.972a.8.8 0 0 1-.402.694l-9.209 5.302-.026.016v10.417a.8.8 0 0 1-.402.694L20.56 51.411a.802.802 0 0 1-.195.066c-.007.002-.013.007-.02.008a.808.808 0 0 1-.41 0c-.007-.001-.013-.006-.02-.008a.799.799 0 0 1-.195-.066L.402 39.868A.8.8 0 0 1 0 39.175V6.4c0-.073.01-.146.028-.209.006-.02.018-.037.025-.056.012-.033.023-.066.041-.096.014-.024.035-.043.052-.065.02-.028.038-.057.062-.08.018-.017.041-.03.062-.045.024-.018.046-.039.073-.052l9.813-5.257a.802.802 0 0 1 .766 0l9.813 5.257c.027.013.049.034.073.052.02.015.044.028.062.045.024.023.042.052.062.08.017.022.038.041.052.065.018.03.029.063.041.096.007.019.019.036.025.056zm-1.601 10.418v-9.15l-3.957 2.277-5.252 3.025v9.15l9.21-5.302zm-10.211 17.96v-9.15l-5.167 2.966-14.768 8.496v9.241l19.935-11.553zM1.602 7.719v31.456L21.537 50.73v-9.242l-10.392-5.966-.002-.001-.002-.002c-.027-.014-.048-.034-.072-.052-.02-.015-.044-.027-.061-.045l-.002-.003c-.021-.022-.039-.05-.059-.078-.015-.022-.035-.041-.048-.065l-.001-.002c-.017-.028-.026-.061-.038-.092-.008-.02-.019-.038-.025-.058-.012-.038-.016-.078-.02-.119-.003-.017-.009-.033-.01-.051V14.439L9.81 11.414 1.602 7.719zm8.81-5.994L1.602 6.4l8.608 3.714 8.608-3.714-8.608-4.675zm4.978 17.29l5.252-3.025-3.957-2.278-5.253 3.026 3.958 2.277zm14.287-6.305l-9.012 5.19v10.371l3.657-2.101 5.355-3.073V12.71zm-10.613 18.321l14.232-8.193 7.585-4.361-8.586-4.644-9.03 5.193-14.87 8.55 10.67 3.455z"
+                    fill="#FF2D20"
                   />
                 </svg>
               </div>
-              <div class="contact__info">
-                <span class="contact__label">LinkedIn</span>
-                <span class="contact__value">linkedin.com/in/lucalombardo</span>
-              </div>
-              <svg
-                class="contact__arrow"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                stroke-width="2"
-                aria-hidden="true"
-              >
-                <line x1="5" y1="12" x2="19" y2="12" />
-                <polyline points="12 5 19 12 12 19" />
-              </svg>
-            </a>
+              <span>Laravel</span>
+            </div>
           </div>
         </div>
-      </div>
-    </section>
+      </section>
+
+      <!-- ░░ PROJECTS ░░ -->
+      <section class="projects section" id="projects">
+        <div class="container">
+          <p class="section__label centered">04 — Work</p>
+          <h2 class="section__title centered">Projects</h2>
+          <div class="projects__grid">
+            <article class="card card--project">
+              <div class="card__preview" aria-hidden="true">
+                <div class="card__preview-mock">
+                  <div class="mock__bar">
+                    <span></span><span></span><span></span>
+                  </div>
+                  <div class="mock__content">
+                    <div class="mock__hero-block"></div>
+                    <div class="mock__line" style="width: 85%"></div>
+                    <div class="mock__line" style="width: 65%"></div>
+                    <div class="mock__cta"></div>
+                  </div>
+                </div>
+                <div class="card__preview-overlay">
+                  <a
+                    href="#"
+                    class="card__btn card__btn--demo"
+                    target="_blank"
+                    rel="noopener"
+                  >
+                    <svg
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2"
+                    >
+                      <path
+                        d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"
+                      />
+                      <polyline points="15 3 21 3 21 9" />
+                      <line x1="10" y1="14" x2="21" y2="3" />
+                    </svg>
+                    Live Demo
+                  </a>
+                  <a
+                    href="#"
+                    class="card__btn card__btn--code"
+                    target="_blank"
+                    rel="noopener"
+                  >
+                    <svg viewBox="0 0 24 24" fill="currentColor">
+                      <path
+                        d="M12 0C5.374 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0 1 12 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z"
+                      />
+                    </svg>
+                    Source
+                  </a>
+                </div>
+              </div>
+              <div class="card__body">
+                <h3 class="card__title">Landing Page Example</h3>
+                <p class="card__desc">
+                  Mobile-first landing page for a local business. Focused on
+                  conversion, fast load times and clean visual hierarchy.
+                </p>
+                <div class="card__tags">
+                  <span class="tag tag--sm">HTML</span>
+                  <span class="tag tag--sm">CSS</span>
+                  <span class="tag tag--sm">JavaScript</span>
+                </div>
+              </div>
+            </article>
+
+            <article class="card card--project">
+              <div class="card__preview" aria-hidden="true">
+                <div class="card__preview-mock">
+                  <div class="mock__bar">
+                    <span></span><span></span><span></span>
+                  </div>
+                  <div class="mock__content">
+                    <div class="mock__hero-block" style="height: 36px"></div>
+                    <div class="mock__line" style="width: 70%"></div>
+                    <div class="mock__line" style="width: 50%"></div>
+                    <div class="mock__cta" style="width: 80px"></div>
+                  </div>
+                </div>
+                <div class="card__preview-overlay">
+                  <a
+                    href="#"
+                    class="card__btn card__btn--demo"
+                    target="_blank"
+                    rel="noopener"
+                  >
+                    <svg
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2"
+                    >
+                      <path
+                        d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"
+                      />
+                      <polyline points="15 3 21 3 21 9" />
+                      <line x1="10" y1="14" x2="21" y2="3" />
+                    </svg>
+                    Live Demo
+                  </a>
+                  <a
+                    href="#"
+                    class="card__btn card__btn--code"
+                    target="_blank"
+                    rel="noopener"
+                  >
+                    <svg viewBox="0 0 24 24" fill="currentColor">
+                      <path
+                        d="M12 0C5.374 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0 1 12 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z"
+                      />
+                    </svg>
+                    Source
+                  </a>
+                </div>
+              </div>
+              <div class="card__body">
+                <h3 class="card__title">Portfolio Website</h3>
+                <p class="card__desc">
+                  Personal developer portfolio. Dark theme, scroll animations,
+                  Intersection Observer reveals and zero dependencies.
+                </p>
+                <div class="card__tags">
+                  <span class="tag tag--sm">HTML</span>
+                  <span class="tag tag--sm">CSS</span>
+                  <span class="tag tag--sm">JavaScript</span>
+                </div>
+              </div>
+            </article>
+
+            <article class="card card--project">
+              <div class="card__preview" aria-hidden="true">
+                <div class="card__preview-mock">
+                  <div class="mock__bar">
+                    <span></span><span></span><span></span>
+                  </div>
+                  <div class="mock__content">
+                    <div class="mock__hero-block" style="height: 44px"></div>
+                    <div class="mock__line" style="width: 60%"></div>
+                    <div class="mock__line" style="width: 80%"></div>
+                    <div class="mock__cta" style="width: 100px"></div>
+                  </div>
+                </div>
+                <div class="card__preview-overlay">
+                  <a
+                    href="#"
+                    class="card__btn card__btn--demo"
+                    target="_blank"
+                    rel="noopener"
+                  >
+                    <svg
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2"
+                    >
+                      <path
+                        d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"
+                      />
+                      <polyline points="15 3 21 3 21 9" />
+                      <line x1="10" y1="14" x2="21" y2="3" />
+                    </svg>
+                    Live Demo
+                  </a>
+                  <a
+                    href="#"
+                    class="card__btn card__btn--code"
+                    target="_blank"
+                    rel="noopener"
+                  >
+                    <svg viewBox="0 0 24 24" fill="currentColor">
+                      <path
+                        d="M12 0C5.374 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0 1 12 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z"
+                      />
+                    </svg>
+                    Source
+                  </a>
+                </div>
+              </div>
+              <div class="card__body">
+                <h3 class="card__title">Business Landing Page</h3>
+                <p class="card__desc">
+                  Conversion-focused product landing page. Strong CTA structure,
+                  optimised performance and backend integration via Laravel.
+                </p>
+                <div class="card__tags">
+                  <span class="tag tag--sm">HTML</span>
+                  <span class="tag tag--sm">CSS</span>
+                  <span class="tag tag--sm">Laravel</span>
+                </div>
+              </div>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <!-- ░░ CONTACT ░░ -->
+      <section class="contact section" id="contact">
+        <div class="container">
+          <div class="contact__inner">
+            <p class="section__label centered">05 — Contact</p>
+            <h2 class="section__title centered">Let's Work<br />Together</h2>
+            <p class="contact__subtitle">
+              Have a project in mind? I'm available for freelance work — let's
+              build something great.
+            </p>
+
+            <div class="contact__links">
+              <a
+                href="/cdn-cgi/l/email-protection#e08c958381a08c9583818c8f8d828192848fce848596"
+                class="contact__link"
+              >
+                <div class="contact__icon">
+                  <svg
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="1.5"
+                    aria-hidden="true"
+                  >
+                    <path
+                      d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"
+                    />
+                    <polyline points="22,6 12,13 2,6" />
+                  </svg>
+                </div>
+                <div class="contact__info">
+                  <span class="contact__label">Email</span>
+                  <span class="contact__value"
+                    ><span
+                      class="__cf_email__"
+                      data-cfemail="49253c2a2809253c2a282526242b283b2d26672d2c3f"
+                      >[email&#160;protected]</span
+                    ></span
+                  >
+                </div>
+                <svg
+                  class="contact__arrow"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  aria-hidden="true"
+                >
+                  <line x1="5" y1="12" x2="19" y2="12" />
+                  <polyline points="12 5 19 12 12 19" />
+                </svg>
+              </a>
+
+              <a
+                href="https://github.com/lucalombardo"
+                target="_blank"
+                rel="noopener"
+                class="contact__link"
+              >
+                <div class="contact__icon">
+                  <svg
+                    viewBox="0 0 24 24"
+                    fill="currentColor"
+                    aria-hidden="true"
+                  >
+                    <path
+                      d="M12 0C5.374 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0 1 12 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z"
+                    />
+                  </svg>
+                </div>
+                <div class="contact__info">
+                  <span class="contact__label">GitHub</span>
+                  <span class="contact__value">github.com/lucalombardo</span>
+                </div>
+                <svg
+                  class="contact__arrow"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  aria-hidden="true"
+                >
+                  <line x1="5" y1="12" x2="19" y2="12" />
+                  <polyline points="12 5 19 12 12 19" />
+                </svg>
+              </a>
+
+              <a
+                href="https://linkedin.com/in/lucalombardo"
+                target="_blank"
+                rel="noopener"
+                class="contact__link"
+              >
+                <div class="contact__icon">
+                  <svg
+                    viewBox="0 0 24 24"
+                    fill="currentColor"
+                    aria-hidden="true"
+                  >
+                    <path
+                      d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"
+                    />
+                  </svg>
+                </div>
+                <div class="contact__info">
+                  <span class="contact__label">LinkedIn</span>
+                  <span class="contact__value"
+                    >linkedin.com/in/lucalombardo</span
+                  >
+                </div>
+                <svg
+                  class="contact__arrow"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  aria-hidden="true"
+                >
+                  <line x1="5" y1="12" x2="19" y2="12" />
+                  <polyline points="12 5 19 12 12 19" />
+                </svg>
+              </a>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
 
     <!-- ░░ FOOTER ░░ -->
     <footer class="footer">
@@ -703,17 +842,9 @@
             >© 2026 Luca Lombardo — Designed &amp; built with vanilla web
             technologies</span
           >
-          <a href="#hero" class="footer__top" aria-label="Back to top">
-            <svg
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              stroke-width="2"
-              aria-hidden="true"
-            ></svg
-          ></a>
         </div>
       </div>
     </footer>
+    <script src="script.js"></script>
   </body>
 </html>
