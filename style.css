@@ -183,6 +183,12 @@ body::before {
   pointer-events: none; z-index: 0;
 }
 
+.hero__particles {
+  position: absolute; inset: 0;
+  width: 100%; height: 100%;
+  z-index: 0; pointer-events: none;
+}
+
 .hero__bg-grid {
   position: absolute; inset: 0;
   background-image: radial-gradient(circle, rgba(99,102,241,0.14) 1px, transparent 1px);
@@ -241,6 +247,78 @@ body::before {
   background-size: 250% 100%;
   border-radius: inherit;
   animation: shimmer 5s ease-in-out 2s infinite;
+}
+
+/* ── 3D FLOATING GEOMETRY ─────────────────────────────────── */
+.hero__3d-wrap {
+  position: absolute;
+  top: 50%; right: 0;
+  width: 320px; height: 280px;
+  transform: translateY(-50%);
+  pointer-events: none;
+  perspective: 600px;
+  z-index: 0;
+  transition: transform 0.3s ease-out;
+}
+
+.geo {
+  position: absolute;
+  transform-style: preserve-3d;
+}
+
+/* — Cubo wireframe — */
+.geo--cube {
+  width: 70px; height: 70px;
+  top: -30px; right: -25px;
+  animation: geo-spin-cube 24s linear infinite;
+}
+.geo__face {
+  position: absolute; width: 100%; height: 100%;
+  border: 1px solid rgba(99,102,241,0.25);
+  background: transparent;
+}
+.geo__face--front  { transform: translateZ(35px); }
+.geo__face--back   { transform: rotateY(180deg) translateZ(35px); }
+.geo__face--left   { transform: rotateY(-90deg) translateZ(35px); }
+.geo__face--right  { transform: rotateY(90deg) translateZ(35px); }
+.geo__face--top    { transform: rotateX(90deg) translateZ(35px); }
+.geo__face--bottom { transform: rotateX(-90deg) translateZ(35px); }
+
+/* — Anello — */
+.geo--ring {
+  width: 120px; height: 120px;
+  bottom: -40px; left: -50px;
+  border: 1px solid rgba(139,92,246,0.3);
+  border-radius: 50%;
+  animation: geo-spin-ring 20s linear infinite;
+}
+
+/* — Ottaedro (4 facce triangolari visibili) — */
+.geo--octa {
+  width: 50px; height: 50px;
+  top: 50%; right: -40px;
+  transform-style: preserve-3d;
+  animation: geo-spin-octa 28s linear infinite;
+}
+.geo__tri {
+  position: absolute; width: 0; height: 0;
+  border-left: 25px solid transparent;
+  border-right: 25px solid transparent;
+  border-bottom: 40px solid rgba(99,102,241,0.15);
+}
+.geo__tri--1 { transform: rotateY(0deg) rotateX(30deg) translateZ(20px); }
+.geo__tri--2 { transform: rotateY(90deg) rotateX(30deg) translateZ(20px); }
+.geo__tri--3 { transform: rotateY(180deg) rotateX(30deg) translateZ(20px); }
+.geo__tri--4 { transform: rotateY(270deg) rotateX(30deg) translateZ(20px); }
+
+@keyframes geo-spin-cube {
+  to { transform: rotateX(360deg) rotateY(360deg); }
+}
+@keyframes geo-spin-ring {
+  to { transform: rotateX(65deg) rotateZ(360deg); }
+}
+@keyframes geo-spin-octa {
+  to { transform: rotateY(360deg) rotateX(15deg); }
 }
 
 .code-line { display: block; }
@@ -490,6 +568,17 @@ body::before {
 .tag--sm { font-size: 0.68rem; padding: 3px 9px; border-radius: 4px; }
 
 /* ── SERVICES ─────────────────────────────────────────────── */
+.services { position: relative; overflow: hidden; }
+.services__blob {
+  position: absolute;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  width: 400px; height: 400px;
+  pointer-events: none; z-index: 0;
+  opacity: 0.7;
+}
+.services .container { position: relative; z-index: 1; }
+
 .services__grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 20px; }
 
 /* ── CARDS (base) ─────────────────────────────────────────── */
@@ -660,6 +749,20 @@ body::before {
 .stack__icon-wrap {
   width: 40px; height: 40px; display: flex; align-items: center; justify-content: center;
   transition: transform 0.25s var(--ease), filter 0.25s var(--ease);
+  animation: float 3s ease-in-out infinite;
+  animation-play-state: paused;
+}
+.stack__item.visible .stack__icon-wrap { animation-play-state: running; }
+.stack__item:nth-child(1) .stack__icon-wrap { animation-delay: 0s; }
+.stack__item:nth-child(2) .stack__icon-wrap { animation-delay: -0.5s; }
+.stack__item:nth-child(3) .stack__icon-wrap { animation-delay: -1s; }
+.stack__item:nth-child(4) .stack__icon-wrap { animation-delay: -1.5s; }
+.stack__item:nth-child(5) .stack__icon-wrap { animation-delay: -2s; }
+.stack__item:nth-child(6) .stack__icon-wrap { animation-delay: -2.5s; }
+
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50%      { transform: translateY(-6px); }
 }
 .stack__item:hover .stack__icon-wrap {
   transform: scale(1.15) translateY(-2px);
@@ -834,6 +937,7 @@ body::before {
   .hero__meta       { justify-content: center; }
   .hero__buttons    { justify-content: center; }
   .hero__code-block { display: none; }
+  .hero__3d-wrap    { display: none; }
 }
 
 @media (max-width: 900px) {

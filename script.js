@@ -401,7 +401,240 @@ ready(function () {
   }
 
   /* ───────────────────────────────────────────────────────────
-     12. SECTION DIVIDERS — linee che si disegnano con lo scroll
+     12. 3D GEOMETRY — parallax e mouse tilt sulle forme
+     ───────────────────────────────────────────────────────── */
+  var geoWrap = document.querySelector('.hero__3d-wrap');
+  if (geoWrap && hasMouse && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    var heroRect;
+    window.addEventListener('mousemove', function (e) {
+      heroRect = heroSection ? heroSection.getBoundingClientRect() : null;
+      if (!heroRect) return;
+      var mx = (e.clientX - heroRect.left) / heroRect.width  - 0.5; // -0.5 … 0.5
+      var my = (e.clientY - heroRect.top)  / heroRect.height - 0.5;
+      geoWrap.style.transform = 'translateY(-50%) rotateY(' + (mx * 8) + 'deg) rotateX(' + (-my * 8) + 'deg)';
+    }, { passive: true });
+  }
+
+  /* ───────────────────────────────────────────────────────────
+     13. PARTICLE CONSTELLATION — canvas interattivo nella hero
+     ───────────────────────────────────────────────────────── */
+  var pCanvas = document.getElementById('heroParticles');
+  var reducedMotionParticles = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  if (pCanvas && !reducedMotionParticles) {
+    var pCtx = pCanvas.getContext('2d');
+    var particles = [];
+    var pMouse = { x: -9999, y: -9999 };
+    var pHeroVisible = true;
+    var pRafId = null;
+    var linkDist = 120;
+    var mouseRadius = 150;
+    var mouseStrength = 0.02;
+
+    function pResize() {
+      var dpr = Math.min(window.devicePixelRatio || 1, 2);
+      var w = pCanvas.parentElement.offsetWidth;
+      var h = pCanvas.parentElement.offsetHeight;
+      pCanvas.width  = w * dpr;
+      pCanvas.height = h * dpr;
+      pCanvas.style.width  = w + 'px';
+      pCanvas.style.height = h + 'px';
+      pCtx.setTransform(dpr, 0, 0, dpr, 0, 0);
+
+      // Genera particelle adattive
+      var count = Math.min(Math.floor(w * h / 18000), 80);
+      if (count < 20) count = 20;
+      particles = [];
+      for (var i = 0; i < count; i++) {
+        particles.push({
+          x: Math.random() * w,
+          y: Math.random() * h,
+          vx: (Math.random() - 0.5) * 0.4,
+          vy: (Math.random() - 0.5) * 0.4,
+          r: Math.random() * 1.5 + 0.5,
+          a: Math.random() * 0.5 + 0.3
+        });
+      }
+    }
+
+    function pDraw() {
+      var w = pCanvas.parentElement.offsetWidth;
+      var h = pCanvas.parentElement.offsetHeight;
+      pCtx.clearRect(0, 0, w, h);
+
+      // Aggiorna e disegna particelle
+      for (var i = 0; i < particles.length; i++) {
+        var p = particles[i];
+
+        // Attrazione verso il cursore
+        var dmx = pMouse.x - p.x;
+        var dmy = pMouse.y - p.y;
+        var dMouse = Math.sqrt(dmx * dmx + dmy * dmy);
+        if (dMouse < mouseRadius && dMouse > 1) {
+          p.vx += (dmx / dMouse) * mouseStrength;
+          p.vy += (dmy / dMouse) * mouseStrength;
+        }
+
+        // Damping
+        p.vx *= 0.99;
+        p.vy *= 0.99;
+
+        p.x += p.vx;
+        p.y += p.vy;
+
+        // Wrap around
+        if (p.x < 0) p.x = w;
+        if (p.x > w) p.x = 0;
+        if (p.y < 0) p.y = h;
+        if (p.y > h) p.y = 0;
+
+        // Disegna particella
+        pCtx.beginPath();
+        pCtx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+        pCtx.fillStyle = 'rgba(99,102,241,' + p.a + ')';
+        pCtx.fill();
+      }
+
+      // Disegna connessioni
+      for (var i = 0; i < particles.length; i++) {
+        for (var j = i + 1; j < particles.length; j++) {
+          var dx = particles[i].x - particles[j].x;
+          var dy = particles[i].y - particles[j].y;
+          var dist = Math.sqrt(dx * dx + dy * dy);
+          if (dist < linkDist) {
+            var alpha = (1 - dist / linkDist) * 0.15;
+            pCtx.beginPath();
+            pCtx.moveTo(particles[i].x, particles[i].y);
+            pCtx.lineTo(particles[j].x, particles[j].y);
+            pCtx.strokeStyle = 'rgba(99,102,241,' + alpha + ')';
+            pCtx.lineWidth = 0.5;
+            pCtx.stroke();
+          }
+        }
+      }
+    }
+
+    function pLoop() {
+      if (pHeroVisible) pDraw();
+      pRafId = requestAnimationFrame(pLoop);
+    }
+
+    // Observer per pausa fuori viewport
+    var pHeroEl = heroSection || document.getElementById('hero');
+    if (pHeroEl) {
+      new IntersectionObserver(function (entries) {
+        pHeroVisible = entries[0].isIntersecting;
+      }, { threshold: 0 }).observe(pHeroEl);
+    }
+
+    // Mouse tracking
+    window.addEventListener('mousemove', function (e) {
+      if (!pHeroEl) return;
+      var r = pHeroEl.getBoundingClientRect();
+      pMouse.x = e.clientX - r.left;
+      pMouse.y = e.clientY - r.top;
+    }, { passive: true });
+
+    // Reset mouse fuori dalla hero
+    if (pHeroEl) {
+      pHeroEl.addEventListener('mouseleave', function () {
+        pMouse.x = -9999;
+        pMouse.y = -9999;
+      });
+    }
+
+    // Init
+    pResize();
+    pLoop();
+
+    // Resize handler
+    var pResizeTimer;
+    window.addEventListener('resize', function () {
+      clearTimeout(pResizeTimer);
+      pResizeTimer = setTimeout(pResize, 200);
+    });
+  }
+
+  /* ───────────────────────────────────────────────────────────
+     14. MORPHING BLOB — forma organica animata dietro services
+     ───────────────────────────────────────────────────────── */
+  var blobCanvas = document.getElementById('servicesBlob');
+  var blobReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  if (blobCanvas && !blobReduced) {
+    var bCtx  = blobCanvas.getContext('2d');
+    var bSize = 400;
+    var bDpr  = Math.min(window.devicePixelRatio || 1, 2);
+    blobCanvas.width  = bSize * bDpr;
+    blobCanvas.height = bSize * bDpr;
+    bCtx.setTransform(bDpr, 0, 0, bDpr, 0, 0);
+
+    var bPoints = 8;
+    var bBaseR  = 130;
+    var bAmpls  = [];
+    var bFreqs  = [];
+    var bPhases = [];
+    for (var i = 0; i < bPoints; i++) {
+      bAmpls.push(15 + Math.random() * 20);
+      bFreqs.push(0.3 + Math.random() * 0.4);
+      bPhases.push(Math.random() * Math.PI * 2);
+    }
+
+    var bVisible = false;
+    var bRaf = null;
+    var servicesEl = document.getElementById('services');
+    if (servicesEl) {
+      new IntersectionObserver(function (entries) {
+        bVisible = entries[0].isIntersecting;
+        if (bVisible && !bRaf) blobLoop();
+      }, { threshold: 0 }).observe(servicesEl);
+    }
+
+    function blobLoop() {
+      if (!bVisible) { bRaf = null; return; }
+      var t = performance.now() / 1000;
+      var cx = bSize / 2;
+      var cy = bSize / 2;
+
+      bCtx.clearRect(0, 0, bSize, bSize);
+      bCtx.beginPath();
+
+      var pts = [];
+      for (var i = 0; i < bPoints; i++) {
+        var angle = (i / bPoints) * Math.PI * 2;
+        var r = bBaseR + Math.sin(t * bFreqs[i] + bPhases[i]) * bAmpls[i];
+        pts.push({
+          x: cx + Math.cos(angle) * r,
+          y: cy + Math.sin(angle) * r
+        });
+      }
+
+      // Disegna con bezier per curve morbide
+      bCtx.moveTo(
+        (pts[bPoints - 1].x + pts[0].x) / 2,
+        (pts[bPoints - 1].y + pts[0].y) / 2
+      );
+      for (var i = 0; i < bPoints; i++) {
+        var next = pts[(i + 1) % bPoints];
+        var mx = (pts[i].x + next.x) / 2;
+        var my = (pts[i].y + next.y) / 2;
+        bCtx.quadraticCurveTo(pts[i].x, pts[i].y, mx, my);
+      }
+      bCtx.closePath();
+
+      var grad = bCtx.createRadialGradient(cx, cy, 0, cx, cy, bBaseR + 30);
+      grad.addColorStop(0, 'rgba(99,102,241,0.12)');
+      grad.addColorStop(0.7, 'rgba(139,92,246,0.06)');
+      grad.addColorStop(1, 'transparent');
+      bCtx.fillStyle = grad;
+      bCtx.fill();
+
+      bRaf = requestAnimationFrame(blobLoop);
+    }
+  }
+
+  /* ───────────────────────────────────────────────────────────
+     15. SECTION DIVIDERS — linee che si disegnano con lo scroll
      ───────────────────────────────────────────────────────── */
   var dividers = document.querySelectorAll('.section-divider');
   if (dividers.length) {
@@ -417,7 +650,31 @@ ready(function () {
   }
 
   /* ───────────────────────────────────────────────────────────
-     13. REDUCED MOTION — mostra subito tutto se l'utente
+     16. PROJECT CARD PARALLAX — immagine preview segue il cursore
+     ───────────────────────────────────────────────────────── */
+  if (hasMouse) {
+    var projectCards = document.querySelectorAll('.card--project');
+    projectCards.forEach(function (card) {
+      var mock = card.querySelector('.card__preview-mock');
+      if (!mock) return;
+
+      card.addEventListener('mousemove', function (e) {
+        var r  = card.getBoundingClientRect();
+        var mx = (e.clientX - r.left) / r.width  - 0.5;
+        var my = (e.clientY - r.top)  / r.height - 0.5;
+        mock.style.transform = 'translate(' + (mx * 8) + 'px,' + (my * 6) + 'px) scale(1.03)';
+        mock.style.transition = 'transform 0.2s ease-out';
+      }, { passive: true });
+
+      card.addEventListener('mouseleave', function () {
+        mock.style.transform = '';
+        mock.style.transition = 'transform 0.4s ease-out';
+      });
+    });
+  }
+
+  /* ───────────────────────────────────────────────────────────
+     17. REDUCED MOTION — mostra subito tutto se l'utente
          ha disabilitato le animazioni nel sistema operativo
      ───────────────────────────────────────────────────────── */
   if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {

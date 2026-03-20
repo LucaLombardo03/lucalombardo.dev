@@ -159,6 +159,7 @@
     <main>
       <!-- ░░ HERO ░░ -->
       <section class="hero" id="hero">
+        <canvas class="hero__particles" id="heroParticles" aria-hidden="true"></canvas>
         <div class="hero__bg-grid"></div>
         <div
           class="hero__spotlight"
@@ -247,6 +248,27 @@
           </div>
 
           <!-- RIGHT: code block decoration -->
+          <div class="hero__3d-wrap" aria-hidden="true">
+            <!-- Cubo wireframe -->
+            <div class="geo geo--cube">
+              <div class="geo__face geo__face--front"></div>
+              <div class="geo__face geo__face--back"></div>
+              <div class="geo__face geo__face--left"></div>
+              <div class="geo__face geo__face--right"></div>
+              <div class="geo__face geo__face--top"></div>
+              <div class="geo__face geo__face--bottom"></div>
+            </div>
+            <!-- Anello -->
+            <div class="geo geo--ring"></div>
+            <!-- Ottaedro (diamante) -->
+            <div class="geo geo--octa">
+              <div class="geo__tri geo__tri--1"></div>
+              <div class="geo__tri geo__tri--2"></div>
+              <div class="geo__tri geo__tri--3"></div>
+              <div class="geo__tri geo__tri--4"></div>
+            </div>
+          </div>
+
           <div class="hero__code-block" aria-hidden="true">
             <span class="code-line"
               ><span class="c-keyword">const</span>
@@ -335,6 +357,7 @@
 
       <!-- ░░ SERVICES ░░ -->
       <section class="services section" id="services">
+        <canvas class="services__blob" id="servicesBlob" aria-hidden="true"></canvas>
         <div class="container">
           <p class="section__label centered">02 — Services</p>
           <h2 class="section__title centered">What I Do</h2>
