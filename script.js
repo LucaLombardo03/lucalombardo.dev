@@ -39,6 +39,7 @@ ready(function () {
       burger.classList.toggle('open', open);
       burger.setAttribute('aria-expanded', String(open));
       document.body.style.overflow = open ? 'hidden' : '';
+      if (nav) nav.classList.toggle('menu-open', open);
     });
 
     navLinks.querySelectorAll('a').forEach(function (link) {
@@ -47,6 +48,7 @@ ready(function () {
         burger.classList.remove('open');
         burger.setAttribute('aria-expanded', 'false');
         document.body.style.overflow = '';
+        if (nav) nav.classList.remove('menu-open');
       });
     });
   }
