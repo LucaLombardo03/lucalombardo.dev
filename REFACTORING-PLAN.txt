@@ -1,0 +1,251 @@
+================================================================================
+  PIANO DI REFACTORING — lucalombardo.dev
+  Generato: 2026-03-21
+================================================================================
+
+CONTESTO
+--------
+Il sito portfolio e' funzionalmente completo con 17 sezioni JS, ~993 righe CSS
+e ~932 righe HTML. Il codice ha accumulato debito tecnico: pattern duplicati,
+naming inconsistente, variabili criptiche, e inline styles. Il refactoring mira
+a migliorare leggibilita', manutenibilita' e struttura senza cambiare
+comportamento o layout.
+
+Vincoli: Vanilla HTML/CSS/JS, nessuna dipendenza, convenzione var + function
+expressions, naming BEM, commenti interni in italiano.
+
+================================================================================
+
+FASE 1 — MODIFICHE MECCANICHE SICURE (rischio ZERO)
+================================================================================
+
+1.1  JS: Funzione lerp condivisa
+     - slrp (riga ~223) e cgLerp (riga ~315) sono identiche
+     - Estrarre una singola "var lerp" all'inizio di ready()
+     - File: script.js
+
+1.2  JS: Variabile reducedMotion condivisa
+     - window.matchMedia('(prefers-reduced-motion: reduce)').matches e'
+       chiamata 5 volte
+     - Estrarre "var reducedMotion" all'inizio di ready()
+     - File: script.js
+
+1.3  JS: Rinomina variabili criptiche
+     slrp          ->  lerp (condivisa)         [Spotlight]
+     smouse        ->  spotMouse                 [Spotlight]
+     spos          ->  spotPos                   [Spotlight]
+     sraf          ->  spotRaf                   [Spotlight]
+     hw / hh       ->  spotHalfW / spotHalfH     [Spotlight]
+     cgMouse       ->  glowMouse                 [Cursor glow]
+     cgPos         ->  glowPos                   [Cursor glow]
+     cgLerp        ->  rimossa (usa lerp)        [Cursor glow]
+     File: script.js
+
+1.4  CSS: Variabili --accent-rgb e --accent-2-rgb
+     - Aggiungere in :root:
+         --accent-rgb: 99, 102, 241;
+         --accent-2-rgb: 139, 92, 246;
+     - Sostituire tutti i ~29 rgba(99,102,241,X) con rgba(var(--accent-rgb), X)
+     - Sostituire i rgba(139,92,246,X) con rgba(var(--accent-2-rgb), X)
+     - Perche': un solo punto di modifica per il colore accent
+     - File: style.css
+
+1.5  CSS: Shorthand animation sui section titles
+     - Righe 88-93 (6 proprieta' animation-*) diventano:
+         animation: gradient-shift 6s ease infinite alternate;
+         animation-play-state: paused;
+     - Risparmio: ~4 righe
+     - File: style.css
+
+
+================================================================================
+
+FASE 2 — CONSOLIDAMENTO PATTERN (rischio BASSO)
+================================================================================
+
+2.1  HTML: Deduplicazione SVG con <defs> + <use>
+     - Aggiungere blocco <svg style="display:none"> dopo <body> con 3 <symbol>:
+         #icon-github    (path GitHub, duplicato 5x)
+         #icon-external  (icona link esterno, duplicato 3x)
+         #icon-arrow     (freccia, duplicata 4x)
+     - Sostituire ogni SVG inline con <svg ...><use href="#icon-xxx"/></svg>
+     - Risparmio: ~120 righe HTML
+     - File: index.html
+
+2.2  HTML: Inline styles -> classi CSS
+     - 11 attributi style="width: X%" / style="height: Xpx" sugli elementi
+       mock diventano classi BEM modifier:
+         .mock__line--w85, .mock__line--w70, .mock__line--w65,
+         .mock__line--w50, .mock__line--w60, .mock__line--w80,
+         .mock__hero-block--h36, .mock__hero-block--h44,
+         .mock__cta--w80, .mock__cta--w100
+     - Rimuovere style="color: #fff" dal SVG GitHub nello stack
+       (il parent ha gia' color: var(--text))
+     - File: index.html, style.css
+
+2.3  CSS: Selettore condiviso gradient-text
+     - Il pattern background-clip e' ripetuto 5 volte. Consolidare:
+         .section__title, .nav__logo, .hero__name,
+         .hero__stat-num, .footer__logo {
+           -webkit-background-clip: text;
+           -webkit-text-fill-color: transparent;
+           background-clip: text;
+         }
+     - Rimuovere le 3 righe duplicate da ogni regola individuale
+     - Risparmio: ~12 righe CSS
+     - File: style.css
+
+2.4  CSS: Selettori card border -> .card
+     - ".card--service, .card--project" e' ripetuto 6 volte nei selettori
+       del rotating border. Semplificare a ".card" dato che non esistono
+       altri tipi di card nel sito
+     - Risparmio: ~12 righe CSS (selettori piu' corti)
+     - File: style.css
+
+2.5  JS: Utility observeOnce
+     - Estrarre factory per observer "fire-once":
+         var observeOnce = function (elements, onIntersect, options) {
+           var obs = new IntersectionObserver(function (entries) {
+             entries.forEach(function (entry) {
+               if (!entry.isIntersecting) return;
+               onIntersect(entry.target);
+               obs.unobserve(entry.target);
+             });
+           }, options || {});
+           elements.forEach(function (el) { obs.observe(el); });
+           return obs;
+         };
+     - Usata per: scroll reveal (sez. 5), section dividers (sez. 15)
+     - Risparmio: ~8 righe
+     - File: script.js
+
+2.6  JS: Utility setupCanvas
+     - DPR handling duplicato per particles e blob -> funzione condivisa:
+         var setupCanvas = function (canvas, ctx, w, h) {
+           var dpr = Math.min(window.devicePixelRatio || 1, 2);
+           canvas.width = w * dpr; canvas.height = h * dpr;
+           canvas.style.width = w + 'px'; canvas.style.height = h + 'px';
+           ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+           return dpr;
+         };
+     - Risparmio: ~5 righe
+     - File: script.js
+
+
+================================================================================
+
+FASE 3 — MIGLIORAMENTI STRUTTURALI (rischio BASSO-MEDIO)
+================================================================================
+
+3.1  JS: Utility setupMouseInteraction
+     - Pattern mousemove+mouseleave duplicato 3 volte (card tilt, magnetic
+       buttons, project parallax). Estrarre:
+         var setupMouseInteraction = function (elements, onMove, onLeave, opts) {
+           opts = opts || {};
+           elements.forEach(function (el) {
+             el.addEventListener('mousemove', function (e) {
+               var r = el.getBoundingClientRect();
+               var dx = (e.clientX - r.left) / r.width - 0.5;
+               var dy = (e.clientY - r.top) / r.height - 0.5;
+               var target = opts.target ? opts.target(el) : el;
+               onMove(target, dx, dy, e, r);
+             }, { passive: true });
+             el.addEventListener('mouseleave', function () {
+               var target = opts.target ? opts.target(el) : el;
+               onLeave(target);
+             });
+           });
+         };
+     - Risparmio: ~25 righe
+     - File: script.js
+
+3.2  HTML: Correzioni semantiche
+     - <article class="card card--project"> -> <div> (3 istanze)
+     - Aggiungere skip-to-content link + CSS associato
+     - Rimuovere target="_blank" dai 6 link placeholder href="#"
+     - File: index.html, style.css
+
+3.3  HTML/CSS: Pulizia BEM naming
+     - .dot       ->  .hero__dot
+     - .separator ->  .hero__separator
+     - .role      ->  .hero__role
+     - .accent    ->  .u-accent       (prefisso utility)
+     - .centered  ->  .u-centered     (prefisso utility)
+     - Aggiornare HTML e CSS in lockstep
+     - File: index.html, style.css
+
+3.4  CSS: Eliminare !important dal nav CTA
+     - 9 !important su .nav__cta (righe 142-155). Aumentare specificita'
+       naturalmente con ".nav__links .nav__cta"
+     - NOTA: i 2 !important nel breakpoint mobile per card/stack hover
+       (righe 980-981) sono NECESSARI per sovrascrivere inline transform
+       settato da JS -> mantenerli con commento esplicativo
+     - Rischio: MEDIO — richiede test in tutti i breakpoint
+     - File: style.css
+
+3.5  JS: Commento O(n^2) particle loop
+     - Aggiungere commento documentativo al loop di connessione particelle
+     - File: script.js
+
+
+================================================================================
+
+RIEPILOGO IMPATTO
+================================================================================
+
+File          | Righe prima | Righe stimate dopo | Risparmio
+--------------+-------------+--------------------+----------
+index.html    |    932      |       ~810         |   ~122
+style.css     |    993      |       ~965         |    ~28
+script.js     |    686      |       ~640         |    ~46
+--------------+-------------+--------------------+----------
+TOTALE        |   2611      |      ~2415         |   ~196
+
+
+================================================================================
+
+RISCHI E MITIGAZIONI
+================================================================================
+
+Rischio                                    | Mitigazione
+-------------------------------------------+------------------------------------------
+SVG <use> non ereditano fill/stroke        | Testare ogni icona: fill="currentColor"
+                                           | vs stroke="currentColor" sul <svg> di uso
+Specificita' nav CTA dopo rimozione        | Test manuale nav in tutti i 4 breakpoint
+!important                                 | (1060, 900, 680, 420px)
+Rinomina classi BEM rompe CSS/JS           | Find-and-replace atomico su tutti e 3 i
+                                           | file contemporaneamente
+rgba(var(--accent-rgb), X) browser support | Supportato in tutti i browser moderni
+                                           | (Chrome 49+, Firefox 31+, Safari 9.1+)
+
+
+================================================================================
+
+VERIFICA
+================================================================================
+
+1. Visual diff: confrontare screenshot prima/dopo su desktop (1440px),
+   tablet (1060px), mobile (680px, 420px)
+2. Interazioni: testare spotlight, cursor glow, card tilt, magnetic buttons,
+   particle constellation, 3D geometry, morphing blob, project parallax,
+   floating stack icons
+3. Accessibilita': verificare skip-link funzionante, prefers-reduced-motion
+   rispettato
+4. Performance: DevTools Performance tab — verificare 60fps con tutti gli
+   effetti attivi
+5. Console: zero errori JS dopo refactoring
+
+
+================================================================================
+
+SUGGERIMENTI FUTURI (NON applicati)
+================================================================================
+
+- Modularizzazione JS: separare in file distinti (particles.js, spotlight.js,
+  etc.) con un bundler minimo o concatenazione
+- CSS Layers: usare @layer per gestire cascade senza !important
+- Spatial hash per particelle: ridurre O(n^2) a O(n) con griglia spaziale
+  (utile solo se particelle > 150)
+- Sistema di spacing: variabili CSS --space-xs/sm/md/lg/xl per gap consistenti
+- Dark/Light mode: il sistema --accent-rgb facilita l'aggiunta di un theme
+  switcher
