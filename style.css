@@ -3,6 +3,13 @@
    style.css — Indigo palette + proof line
    ============================================================ */
 
+/* ── @PROPERTY (animated gradient border angle) ──────────── */
+@property --border-angle {
+  syntax: "<angle>";
+  initial-value: 0deg;
+  inherits: false;
+}
+
 /* ── RESET & BASE ─────────────────────────────────────────── */
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -73,8 +80,19 @@ body::before {
   font-family: var(--font-display);
   font-size: clamp(2rem, 4vw, 3rem);
   font-weight: 800; line-height: 1.1;
-  margin-bottom: 40px; color: var(--text);
+  margin-bottom: 40px;
+  background: linear-gradient(90deg, var(--text) 0%, var(--accent) 45%, var(--accent-2) 55%, var(--text) 100%);
+  background-size: 300% 100%;
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation-name: gradient-shift;
+  animation-duration: 6s;
+  animation-timing-function: ease;
+  animation-iteration-count: infinite;
+  animation-direction: alternate;
+  animation-play-state: paused;
 }
+.section__title.visible { animation-play-state: running; }
 
 /* ── NAV ──────────────────────────────────────────────────── */
 .nav {
@@ -211,9 +229,20 @@ body::before {
   border-radius: var(--radius); padding: 20px 24px;
   backdrop-filter: blur(16px); white-space: nowrap;
   opacity: 0; animation: fadeIn 0.7s 1s var(--ease) forwards;
-  pointer-events: none;
+  pointer-events: none; position: relative; overflow: hidden;
   box-shadow: 0 20px 60px rgba(0,0,0,0.5), 0 0 0 1px rgba(99,102,241,0.08);
 }
+.hero__code-block::after {
+  content: ""; position: absolute; inset: 0;
+  background: linear-gradient(
+    110deg, transparent 25%, rgba(99,102,241,0.06) 37%,
+    rgba(255,255,255,0.05) 50%, rgba(99,102,241,0.06) 63%, transparent 75%
+  );
+  background-size: 250% 100%;
+  border-radius: inherit;
+  animation: shimmer 5s ease-in-out 2s infinite;
+}
+
 .code-line { display: block; }
 .c-keyword  { color: #a78bfa; }
 .c-var      { color: #93c5fd; }
@@ -250,7 +279,15 @@ body::before {
   background: linear-gradient(135deg, #ffffff 0%, #c7d2fe 40%, #a78bfa 100%);
   -webkit-background-clip: text; -webkit-text-fill-color: transparent;
   background-clip: text; margin-bottom: 16px;
-  animation: fadeUp 0.8s 0.2s var(--ease) both;
+}
+.hero__name .char {
+  display: inline-block;
+  opacity: 0; transform: translateY(20px);
+  filter: blur(4px);
+  transition: opacity 0.4s var(--ease), transform 0.4s var(--ease), filter 0.4s var(--ease);
+}
+.hero__name .char.visible {
+  opacity: 1; transform: translateY(0); filter: blur(0);
 }
 
 .hero__roles {
@@ -458,14 +495,10 @@ body::before {
 /* ── CARDS (base) ─────────────────────────────────────────── */
 .card {
   background: var(--bg-card); border: 1px solid var(--border);
-  border-radius: var(--radius-lg); position: relative; overflow: hidden;
+  border-radius: var(--radius-lg); position: relative;
   will-change: transform;
   transition: border-color 0.28s var(--ease), transform 0.28s var(--ease),
               box-shadow 0.28s var(--ease), background 0.28s var(--ease);
-}
-.card::before {
-  content: ""; position: absolute; top: 0; left: 0; right: 0; height: 1px;
-  background: var(--grad); opacity: 0; transition: opacity 0.28s var(--ease);
 }
 .card:hover {
   border-color: var(--border-hover);
@@ -475,7 +508,36 @@ body::before {
               0 0 0 1px var(--border-hover),
               0 0 40px rgba(99,102,241,0.1);
 }
-.card:hover::before { opacity: 1; }
+
+/* ── ROTATING GRADIENT BORDER ────────────────────────────── */
+.card--service, .card--project { isolation: isolate; }
+.card--service::before, .card--project::before {
+  content: ""; position: absolute; inset: -1px;
+  background: conic-gradient(
+    from var(--border-angle),
+    var(--accent), var(--accent-2), transparent 40%, transparent 60%, var(--accent)
+  );
+  border-radius: inherit;
+  opacity: 0; transition: opacity 0.35s var(--ease);
+  z-index: -2;
+}
+.card--service::after, .card--project::after {
+  content: ""; position: absolute; inset: 1px;
+  background: var(--bg-card);
+  border-radius: calc(var(--radius-lg) - 1px);
+  z-index: -1;
+  transition: background 0.28s var(--ease);
+}
+.card--service:hover, .card--project:hover {
+  border-color: transparent; background: transparent;
+}
+.card--service:hover::before, .card--project:hover::before {
+  opacity: 1;
+  animation: rotate-border 3s linear infinite;
+}
+.card--service:hover::after, .card--project:hover::after {
+  background: var(--bg-card-2);
+}
 
 /* ── SERVICE CARDS ────────────────────────────────────────── */
 .card--service { padding: 30px; }
@@ -667,6 +729,15 @@ body::before {
   transition: transform 0.25s var(--ease), color 0.25s var(--ease);
 }
 
+/* ── SECTION DIVIDERS ────────────────────────────────────── */
+.section-divider {
+  height: 1px; max-width: var(--max-w); margin: 0 auto;
+  background: var(--grad);
+  transform: scaleX(0); transform-origin: left;
+  transition: transform 0.8s var(--ease-out);
+}
+.section-divider.drawn { transform: scaleX(1); }
+
 /* ── FOOTER ───────────────────────────────────────────────── */
 .footer { border-top: 1px solid var(--border); padding: 28px 24px; }
 .footer__inner {
@@ -709,6 +780,17 @@ body::before {
   0%   { transform: scale(0.75); opacity: 0; }
   65%  { transform: scale(1.08); opacity: 1; }
   100% { transform: scale(1);    opacity: 1; }
+}
+@keyframes shimmer {
+  0%, 100% { background-position: 200% 0; }
+  40%      { background-position: -200% 0; }
+}
+@keyframes gradient-shift {
+  0%   { background-position: 0% 50%; }
+  100% { background-position: 100% 50%; }
+}
+@keyframes rotate-border {
+  to { --border-angle: 360deg; }
 }
 
 /* ── SCROLL REVEAL ────────────────────────────────────────── */

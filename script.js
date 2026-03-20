@@ -16,6 +16,35 @@ function ready(fn) {
 ready(function () {
 
   /* ───────────────────────────────────────────────────────────
+     0. HERO TEXT SPLIT — animazione carattere per carattere
+     ───────────────────────────────────────────────────────── */
+  var heroName = document.querySelector('.hero__name');
+  if (heroName) {
+    var reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    var nodes = Array.prototype.slice.call(heroName.childNodes);
+    heroName.innerHTML = '';
+    nodes.forEach(function (node) {
+      if (node.nodeType === 3) { // text
+        node.textContent.split('').forEach(function (ch) {
+          var span = document.createElement('span');
+          span.className = 'char';
+          span.textContent = ch === ' ' ? '\u00A0' : ch;
+          if (reducedMotion) span.classList.add('visible');
+          heroName.appendChild(span);
+        });
+      } else if (node.nodeName === 'BR') {
+        heroName.appendChild(document.createElement('br'));
+      }
+    });
+    if (!reducedMotion) {
+      var chars = heroName.querySelectorAll('.char');
+      chars.forEach(function (ch, i) {
+        setTimeout(function () { ch.classList.add('visible'); }, 200 + i * 40);
+      });
+    }
+  }
+
+  /* ───────────────────────────────────────────────────────────
      1. NAV — blur quando si scrolla
      ───────────────────────────────────────────────────────── */
   var nav = document.getElementById('nav');
@@ -326,7 +355,76 @@ ready(function () {
   }
 
   /* ───────────────────────────────────────────────────────────
-     10. REDUCED MOTION — mostra subito tutto se l'utente
+     10. MAGNETIC BUTTONS — i CTA si attraggono verso il cursore
+     ───────────────────────────────────────────────────────── */
+  if (hasMouse) {
+    var magnets = document.querySelectorAll('.btn, .nav__cta, .about__email-btn');
+    var magThreshold = 80;
+    var magStrength  = 0.35;
+
+    magnets.forEach(function (el) {
+      var parent = el.parentElement;
+
+      parent.addEventListener('mousemove', function (e) {
+        var r  = el.getBoundingClientRect();
+        var cx = r.left + r.width / 2;
+        var cy = r.top  + r.height / 2;
+        var dx = e.clientX - cx;
+        var dy = e.clientY - cy;
+        var dist = Math.sqrt(dx * dx + dy * dy);
+
+        if (dist < magThreshold) {
+          el.style.transform = 'translate(' + (dx * magStrength) + 'px,' + (dy * magStrength) + 'px)';
+          el.style.transition = 'transform 0.15s ease';
+        }
+      }, { passive: true });
+
+      parent.addEventListener('mouseleave', function () {
+        el.style.transform = '';
+        el.style.transition = 'transform 0.5s cubic-bezier(0.34,1.56,0.64,1)';
+      });
+    });
+  }
+
+  /* ───────────────────────────────────────────────────────────
+     11. HERO PARALLAX — profondità con velocità diverse
+     ───────────────────────────────────────────────────────── */
+  var heroBgGrid  = document.querySelector('.hero__bg-grid');
+  var heroContent = document.querySelector('.hero__content');
+  var heroEl      = heroSection || document.getElementById('hero');
+
+  if (heroEl && heroBgGrid && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    var heroVisible = true;
+    new IntersectionObserver(function (entries) {
+      heroVisible = entries[0].isIntersecting;
+    }, { threshold: 0 }).observe(heroEl);
+
+    window.addEventListener('scroll', function () {
+      if (!heroVisible) return;
+      var sy = window.scrollY;
+      heroBgGrid.style.transform = 'translateY(' + (sy * 0.3) + 'px)';
+      if (heroContent) heroContent.style.transform = 'translateY(' + (sy * 0.08) + 'px)';
+    }, { passive: true });
+  }
+
+  /* ───────────────────────────────────────────────────────────
+     12. SECTION DIVIDERS — linee che si disegnano con lo scroll
+     ───────────────────────────────────────────────────────── */
+  var dividers = document.querySelectorAll('.section-divider');
+  if (dividers.length) {
+    var dividerObserver = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('drawn');
+          dividerObserver.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.5 });
+    dividers.forEach(function (d) { dividerObserver.observe(d); });
+  }
+
+  /* ───────────────────────────────────────────────────────────
+     13. REDUCED MOTION — mostra subito tutto se l'utente
          ha disabilitato le animazioni nel sistema operativo
      ───────────────────────────────────────────────────────── */
   if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
