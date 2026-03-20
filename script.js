@@ -359,27 +359,20 @@ ready(function () {
      ───────────────────────────────────────────────────────── */
   if (hasMouse) {
     var magnets = document.querySelectorAll('.btn, .nav__cta, .about__email-btn');
-    var magThreshold = 80;
-    var magStrength  = 0.35;
+    var magStrength = 0.22;
 
     magnets.forEach(function (el) {
-      var parent = el.parentElement;
-
-      parent.addEventListener('mousemove', function (e) {
+      el.addEventListener('mousemove', function (e) {
         var r  = el.getBoundingClientRect();
         var cx = r.left + r.width / 2;
         var cy = r.top  + r.height / 2;
         var dx = e.clientX - cx;
         var dy = e.clientY - cy;
-        var dist = Math.sqrt(dx * dx + dy * dy);
-
-        if (dist < magThreshold) {
-          el.style.transform = 'translate(' + (dx * magStrength) + 'px,' + (dy * magStrength) + 'px)';
-          el.style.transition = 'transform 0.15s ease';
-        }
+        el.style.transform = 'translate(' + (dx * magStrength) + 'px,' + (dy * magStrength) + 'px)';
+        el.style.transition = 'transform 0.15s ease';
       }, { passive: true });
 
-      parent.addEventListener('mouseleave', function () {
+      el.addEventListener('mouseleave', function () {
         el.style.transform = '';
         el.style.transition = 'transform 0.5s cubic-bezier(0.34,1.56,0.64,1)';
       });
