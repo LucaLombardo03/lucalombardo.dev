@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630" role="img" aria-labelledby="title desc">
+  <title id="title">Luca Lombardo - Web Developer</title>
+  <desc id="desc">Portfolio and freelance landing page development services by Luca Lombardo.</desc>
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0b0b0f" />
+      <stop offset="100%" stop-color="#151723" />
+    </linearGradient>
+    <linearGradient id="accent" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#8cf6d0" />
+      <stop offset="100%" stop-color="#48b9ff" />
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="630" fill="url(#bg)" />
+  <g opacity="0.16">
+    <circle cx="1040" cy="120" r="180" fill="#48b9ff" />
+    <circle cx="150" cy="520" r="220" fill="#8cf6d0" />
+  </g>
+  <g stroke="rgba(255,255,255,0.10)" fill="none">
+    <path d="M0 120 H1200" />
+    <path d="M0 260 H1200" />
+    <path d="M0 400 H1200" />
+    <path d="M0 540 H1200" />
+    <path d="M180 0 V630" />
+    <path d="M420 0 V630" />
+    <path d="M660 0 V630" />
+    <path d="M900 0 V630" />
+  </g>
+  <rect x="84" y="84" width="1032" height="462" rx="28" fill="rgba(10,12,18,0.72)" stroke="rgba(255,255,255,0.10)" />
+  <text x="124" y="200" fill="#8cf6d0" font-family="Arial, Helvetica, sans-serif" font-size="28" letter-spacing="5">AVAILABLE FOR FREELANCE WORK</text>
+  <text x="124" y="312" fill="#ffffff" font-family="Arial, Helvetica, sans-serif" font-size="92" font-weight="700">Luca Lombardo</text>
+  <rect x="124" y="352" width="280" height="6" rx="3" fill="url(#accent)" />
+  <text x="124" y="430" fill="#d7deef" font-family="Arial, Helvetica, sans-serif" font-size="38">Web Developer</text>
+  <text x="430" y="430" fill="#6f7891" font-family="Arial, Helvetica, sans-serif" font-size="38">/</text>
+  <text x="470" y="430" fill="#d7deef" font-family="Arial, Helvetica, sans-serif" font-size="38">Landing Page Specialist</text>
+  <text x="124" y="500" fill="#aab3c9" font-family="Arial, Helvetica, sans-serif" font-size="30">Performance-focused sites built in Brescia, Italy.</text>
+</svg>
