@@ -26,9 +26,15 @@ ready(function () {
     nodes.forEach(function (node) {
       if (node.nodeType === 3) { // text
         node.textContent.split('').forEach(function (ch) {
+          // lo spazio resta un nodo di testo: dentro uno span
+          // inline-block il browser non potrebbe andare a capo
+          if (ch === ' ') {
+            heroName.appendChild(document.createTextNode(' '));
+            return;
+          }
           var span = document.createElement('span');
           span.className = 'char';
-          span.textContent = ch === ' ' ? '\u00A0' : ch;
+          span.textContent = ch;
           if (reducedMotion) span.classList.add('visible');
           heroName.appendChild(span);
         });
@@ -38,8 +44,11 @@ ready(function () {
     });
     if (!reducedMotion) {
       var chars = heroName.querySelectorAll('.char');
+      // titolo lungo: passo più corto, altrimenti l'ultima
+      // lettera comparirebbe dopo oltre 2 secondi
+      var step = chars.length > 20 ? 20 : 40;
       chars.forEach(function (ch, i) {
-        setTimeout(function () { ch.classList.add('visible'); }, 200 + i * 40);
+        setTimeout(function () { ch.classList.add('visible'); }, 200 + i * step);
       });
     }
   }
@@ -130,7 +139,6 @@ ready(function () {
     { sel: '.about__email-btn',  stagger: false, extra: '' },
     { sel: '.card--service',     stagger: true,  extra: '' },
     { sel: '.card--project',     stagger: true,  extra: '' },
-    { sel: '.stack__item',       stagger: true,  extra: '' },
     { sel: '.contact__subtitle', stagger: false, extra: '' },
     { sel: '.contact__link',     stagger: true,  extra: '' },
   ];
