@@ -1,0 +1,19 @@
+# File di lavoro: restano in locale, non vanno pubblicati su Pages
+PLAN.md
+PROJECT_STATUS.md
+REFACTORING-PLAN.txt
+CLAUDE.md
+AGENTS.md
+
+# Editor
+.vscode/
+.idea/
+
+# Sistema operativo
+Thumbs.db
+desktop.ini
+.DS_Store
+
+# Log e dipendenze (non usate, per sicurezza futura)
+*.log
+node_modules/

@@ -1,0 +1,229 @@
+<!doctype html>
+<!--
+  ============================================================
+  SITO DIMOSTRATIVO — attività di fantasia
+  Template riutilizzabile. Per adattarlo a un cliente reale:
+  1. nome attività: cerca "Studio Tecnico" e "Geom. Marco Rossi"
+  2. monogramma: .brand__mark ("MR") e favicon.svg
+  3. recapiti: telefono, email e indirizzo nell'header e nel footer
+  4. servizi: le card di questa pagina e servizi.html
+  5. colore: --brand in style.css
+  6. togli il noindex e la riga "sito dimostrativo" nel footer
+  ============================================================
+-->
+<html lang="it">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="robots" content="noindex, follow" />
+
+    <title>Studio Tecnico Geom. Marco Rossi — Brescia</title>
+    <meta
+      name="description"
+      content="Studio tecnico a Brescia: pratiche catastali, progettazione, direzione lavori, certificazioni energetiche e perizie. Sito dimostrativo."
+    />
+    <link rel="icon" type="image/svg+xml" href="favicon.svg" />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <header class="site-header">
+      <div class="wrap site-header__inner">
+        <a class="brand" href="index.html">
+          <span class="brand__mark">MR</span>
+          <span class="brand__text">
+            <strong>Studio Tecnico</strong>
+            <span>Geom. Marco Rossi</span>
+          </span>
+        </a>
+
+        <button
+          class="nav-toggle"
+          id="navToggle"
+          aria-expanded="false"
+          aria-controls="siteNav"
+          aria-label="Apri il menu"
+        >
+          <span></span><span></span><span></span>
+        </button>
+
+        <nav class="site-nav" id="siteNav" aria-label="Menu principale">
+          <a href="index.html" class="is-current">Home</a>
+          <a href="servizi.html">Servizi</a>
+          <a href="chi-siamo.html">Chi siamo</a>
+          <a href="contatti.html">Contatti</a>
+          <a class="site-nav__phone" href="tel:+390300000000">030 000 0000</a>
+        </nav>
+      </div>
+    </header>
+
+    <main>
+      <!-- ── HERO ── -->
+      <section class="hero">
+        <div class="wrap hero__grid">
+          <div>
+            <p class="eyebrow">Studio tecnico a Brescia dal 1998</p>
+            <h1>Pratiche edilizie e catastali, senza complicazioni</h1>
+            <p>
+              Seguiamo privati e imprese in ogni passaggio: dal rilievo alla
+              presentazione in Comune, con tempi certi e un referente unico
+              per tutta la pratica.
+            </p>
+            <div class="hero__actions">
+              <a class="btn" href="contatti.html">Richiedi un sopralluogo</a>
+              <a class="btn btn--ghost" href="servizi.html">Vedi i servizi</a>
+            </div>
+          </div>
+
+          <aside class="hero__card">
+            <h2>Contatti rapidi</h2>
+            <dl>
+              <div>
+                <dt>Telefono</dt>
+                <dd><a href="tel:+390300000000">030 000 0000</a></dd>
+              </div>
+              <div>
+                <dt>Email</dt>
+                <dd>
+                  <a href="mailto:info@studiorossi.example"
+                    >info@studiorossi.example</a
+                  >
+                </dd>
+              </div>
+              <div>
+                <dt>Studio</dt>
+                <dd>Via dei Mille 12, 25121 Brescia</dd>
+              </div>
+              <div>
+                <dt>Orari</dt>
+                <dd>Lun-Ven 8:30-12:30 / 14:30-18:00</dd>
+              </div>
+            </dl>
+          </aside>
+        </div>
+      </section>
+
+      <!-- ── SERVIZI IN BREVE ── -->
+      <section class="section">
+        <div class="wrap">
+          <div class="section__head">
+            <p class="eyebrow">Servizi</p>
+            <h2>Di cosa ci occupiamo</h2>
+            <p class="lead">
+              Quattro aree di intervento che coprono la gran parte delle
+              esigenze di un immobile, dalla compravendita alla ristrutturazione.
+            </p>
+          </div>
+
+          <div class="grid grid--2">
+            <article class="card">
+              <span class="card__num">01</span>
+              <h3>Pratiche catastali</h3>
+              <p>
+                Visure, volture, accatastamenti e variazioni. Sistemiamo le
+                difformità prima che diventino un problema in fase di rogito.
+              </p>
+            </article>
+
+            <article class="card">
+              <span class="card__num">02</span>
+              <h3>Progettazione e direzione lavori</h3>
+              <p>
+                Dal progetto alla fine del cantiere: pratiche edilizie,
+                computo dei costi e controllo sull'andamento dei lavori.
+              </p>
+            </article>
+
+            <article class="card">
+              <span class="card__num">03</span>
+              <h3>Certificazioni energetiche</h3>
+              <p>
+                Attestato di Prestazione Energetica per vendite e locazioni,
+                con sopralluogo e consegna in pochi giorni lavorativi.
+              </p>
+            </article>
+
+            <article class="card">
+              <span class="card__num">04</span>
+              <h3>Perizie e valutazioni</h3>
+              <p>
+                Stime di valore per compravendite, successioni e divisioni,
+                con relazione scritta utilizzabile in sede legale.
+              </p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <!-- ── PERCHE NOI ── -->
+      <section class="section section--soft">
+        <div class="wrap">
+          <div class="grid grid--2">
+            <div>
+              <p class="eyebrow">Come lavoriamo</p>
+              <h2>Un referente unico, dall'inizio alla fine</h2>
+              <p class="lead">
+                Chi risponde al telefono è la stessa persona che segue la
+                pratica. Niente passaggi di mano e niente pratiche che si
+                fermano in attesa di qualcuno.
+              </p>
+            </div>
+            <ul class="ticks">
+              <li>Primo sopralluogo e preventivo senza impegno</li>
+              <li>Tempi e costi concordati prima di iniziare</li>
+              <li>Rapporti diretti con Comune, Catasto e imprese</li>
+              <li>Aggiornamento sullo stato della pratica ogni settimana</li>
+              <li>Documentazione consegnata anche in formato digitale</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <!-- ── CTA ── -->
+      <section class="cta">
+        <div class="wrap">
+          <h2>Serve un tecnico per la tua pratica?</h2>
+          <p>Raccontaci la situazione: ti diciamo subito come procedere.</p>
+          <a class="btn" href="contatti.html">Contatta lo studio</a>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="wrap">
+        <div class="site-footer__grid">
+          <div>
+            <h4>Studio Tecnico Geom. Marco Rossi</h4>
+            <p>Via dei Mille 12</p>
+            <p>25121 Brescia (BS)</p>
+            <p>P.IVA IT00000000000</p>
+          </div>
+          <div>
+            <h4>Contatti</h4>
+            <p><a href="tel:+390300000000">030 000 0000</a></p>
+            <p>
+              <a href="mailto:info@studiorossi.example"
+                >info@studiorossi.example</a
+              >
+            </p>
+          </div>
+          <div>
+            <h4>Orari</h4>
+            <p>Lunedì - Venerdì</p>
+            <p>8:30 - 12:30 / 14:30 - 18:00</p>
+            <p>Sabato su appuntamento</p>
+          </div>
+        </div>
+
+        <div class="site-footer__bottom">
+          <p>© 2026 Studio Tecnico Geom. Marco Rossi</p>
+          <p class="site-footer__demo">
+            Sito dimostrativo — attività di fantasia realizzata come esempio da
+            <a href="../../index.html">lucalombardo.dev</a>
+          </p>
+        </div>
+      </div>
+    </footer>
+
+    <script src="script.js"></script>
+  </body>
+</html>
