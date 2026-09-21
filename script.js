@@ -139,6 +139,8 @@ ready(function () {
     { sel: '.about__email-btn',  stagger: false, extra: '' },
     { sel: '.card--service',     stagger: true,  extra: '' },
     { sel: '.card--project',     stagger: true,  extra: '' },
+    { sel: '.card--price',       stagger: true,  extra: '' },
+    { sel: '.pricing__excluded', stagger: false, extra: '' },
     { sel: '.contact__subtitle', stagger: false, extra: '' },
     { sel: '.contact__link',     stagger: true,  extra: '' },
   ];
@@ -347,7 +349,7 @@ ready(function () {
      9. CARD TILT 3D — solo desktop ≥ 901px con mouse preciso
      ───────────────────────────────────────────────────────── */
   if (hasMouse && window.matchMedia('(min-width: 901px)').matches) {
-    document.querySelectorAll('.card--service, .card--project').forEach(function (card) {
+    document.querySelectorAll('.card--service, .card--project, .card--price').forEach(function (card) {
       card.addEventListener('mousemove', function (e) {
         var r  = card.getBoundingClientRect();
         var dx = ((e.clientX - r.left) / r.width  - 0.5) * 2;
