@@ -1,0 +1,8 @@
+User-agent: *
+Allow: /
+
+# /demo/ resta accessibile ai crawler di proposito: le pagine hanno
+# <meta name="robots" content="noindex">, che verrebbe ignorato se il
+# percorso fosse bloccato qui.
+
+Sitemap: https://lucalombardo.dev/sitemap.xml
