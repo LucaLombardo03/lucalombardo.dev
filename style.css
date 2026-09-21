@@ -634,7 +634,15 @@ body::before {
 .card__desc { font-size: 0.85rem; color: var(--text-muted); line-height: 1.72; }
 
 /* ── PROJECT CARDS ────────────────────────────────────────── */
-.projects__grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 24px; }
+.projects__intro {
+  text-align: center; font-size: 0.95rem; color: var(--text-muted);
+  line-height: 1.7; max-width: 560px; margin: -18px auto 40px;
+}
+/* una sola vetrina in evidenza: card centrata, non stirata a tutta riga */
+.projects__grid {
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(0, 340px));
+  justify-content: center; gap: 24px;
+}
 .card--project  { padding: 0; }
 
 .card__preview {
@@ -943,7 +951,7 @@ body::before {
 @media (max-width: 900px) {
   .about__inner   { grid-template-columns: 1fr; gap: 32px; }
   .services__grid { grid-template-columns: 1fr; }
-  .projects__grid { grid-template-columns: 1fr; }
+  .projects__grid { grid-template-columns: minmax(0, 340px); }
   .pricing__grid  { grid-template-columns: 1fr; }
 }
 

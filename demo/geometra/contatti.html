@@ -1,0 +1,182 @@
+<!doctype html>
+<html lang="it">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="robots" content="noindex, follow" />
+
+    <title>Contatti — Studio Tecnico Geom. Marco Rossi</title>
+    <meta
+      name="description"
+      content="Recapiti, orari e indirizzo dello Studio Tecnico Geom. Marco Rossi a Brescia. Sito dimostrativo."
+    />
+    <link rel="icon" type="image/svg+xml" href="favicon.svg" />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <header class="site-header">
+      <div class="wrap site-header__inner">
+        <a class="brand" href="index.html">
+          <span class="brand__mark">MR</span>
+          <span class="brand__text">
+            <strong>Studio Tecnico</strong>
+            <span>Geom. Marco Rossi</span>
+          </span>
+        </a>
+
+        <button
+          class="nav-toggle"
+          id="navToggle"
+          aria-expanded="false"
+          aria-controls="siteNav"
+          aria-label="Apri il menu"
+        >
+          <span></span><span></span><span></span>
+        </button>
+
+        <nav class="site-nav" id="siteNav" aria-label="Menu principale">
+          <a href="index.html">Home</a>
+          <a href="servizi.html">Servizi</a>
+          <a href="chi-siamo.html">Chi siamo</a>
+          <a href="contatti.html" class="is-current">Contatti</a>
+          <a class="site-nav__phone" href="tel:+390300000000">030 000 0000</a>
+        </nav>
+      </div>
+    </header>
+
+    <main>
+      <section class="page-head">
+        <div class="wrap">
+          <p class="breadcrumb"><a href="index.html">Home</a> / Contatti</p>
+          <h1>Contatti</h1>
+          <p>
+            Il modo più rapido è una telefonata: in cinque minuti capiamo se
+            possiamo esserti utili e come procedere.
+          </p>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="wrap contact-grid">
+          <div>
+            <h2>Dove siamo</h2>
+            <dl class="contact-list">
+              <div>
+                <dt>Indirizzo</dt>
+                <dd>Via dei Mille 12<br />25121 Brescia (BS)</dd>
+              </div>
+              <div>
+                <dt>Telefono</dt>
+                <dd><a href="tel:+390300000000">030 000 0000</a></dd>
+              </div>
+              <div>
+                <dt>Email</dt>
+                <dd>
+                  <a href="mailto:info@studiorossi.example"
+                    >info@studiorossi.example</a
+                  >
+                </dd>
+              </div>
+              <div>
+                <dt>PEC</dt>
+                <dd>studiorossi@pec.example</dd>
+              </div>
+              <div>
+                <dt>Orari</dt>
+                <dd>
+                  Lunedì - Venerdì 8:30 - 12:30 / 14:30 - 18:00<br />
+                  Sabato su appuntamento
+                </dd>
+              </div>
+              <div>
+                <dt>Parcheggio</dt>
+                <dd>Posti auto liberi nel cortile interno</dd>
+              </div>
+            </dl>
+          </div>
+
+          <div>
+            <h2>Scrivici</h2>
+            <p class="note">
+              Questo modulo fa parte di un sito dimostrativo: non invia
+              messaggi a nessuno.
+            </p>
+            <br />
+            <form class="form" id="demoForm" novalidate>
+              <div>
+                <label for="nome">Nome e cognome</label>
+                <input type="text" id="nome" name="nome" autocomplete="name" />
+              </div>
+              <div>
+                <label for="email">Email</label>
+                <input
+                  type="email"
+                  id="email"
+                  name="email"
+                  autocomplete="email"
+                />
+              </div>
+              <div>
+                <label for="telefono">Telefono</label>
+                <input
+                  type="tel"
+                  id="telefono"
+                  name="telefono"
+                  autocomplete="tel"
+                />
+              </div>
+              <div>
+                <label for="messaggio">Di cosa hai bisogno?</label>
+                <textarea id="messaggio" name="messaggio"></textarea>
+              </div>
+              <div>
+                <button class="btn" type="submit">Invia richiesta</button>
+              </div>
+              <p class="note" id="demoFormMsg" hidden>
+                Nessun messaggio è stato inviato: il modulo è dimostrativo.
+              </p>
+            </form>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="wrap">
+        <div class="site-footer__grid">
+          <div>
+            <h4>Studio Tecnico Geom. Marco Rossi</h4>
+            <p>Via dei Mille 12</p>
+            <p>25121 Brescia (BS)</p>
+            <p>P.IVA IT00000000000</p>
+          </div>
+          <div>
+            <h4>Contatti</h4>
+            <p><a href="tel:+390300000000">030 000 0000</a></p>
+            <p>
+              <a href="mailto:info@studiorossi.example"
+                >info@studiorossi.example</a
+              >
+            </p>
+          </div>
+          <div>
+            <h4>Orari</h4>
+            <p>Lunedì - Venerdì</p>
+            <p>8:30 - 12:30 / 14:30 - 18:00</p>
+            <p>Sabato su appuntamento</p>
+          </div>
+        </div>
+
+        <div class="site-footer__bottom">
+          <p>© 2026 Studio Tecnico Geom. Marco Rossi</p>
+          <p class="site-footer__demo">
+            Sito dimostrativo — attività di fantasia realizzata come esempio da
+            <a href="../../index.html">lucalombardo.dev</a>
+          </p>
+        </div>
+      </div>
+    </footer>
+
+    <script src="script.js"></script>
+  </body>
+</html>
