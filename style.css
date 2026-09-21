@@ -784,6 +784,8 @@ body::before {
   margin-bottom: 44px; line-height: 1.7;
 }
 .contact__links { display: flex; flex-direction: column; gap: 12px; }
+/* WhatsApp: verde del marchio solo sull'icona, il resto resta indigo */
+.contact__link--whatsapp:hover .contact__icon { color: #25d366; }
 
 .contact__link {
   display: flex; align-items: center; gap: 18px;
@@ -852,6 +854,11 @@ body::before {
   background-clip: text;
 }
 .footer__copy { font-size: 0.75rem; color: var(--text-dim); text-align: center; }
+.footer__link {
+  font-size: 0.75rem; color: var(--text-dim); flex-shrink: 0;
+  transition: color 0.25s var(--ease);
+}
+.footer__link:hover { color: var(--accent); }
 .footer__top {
   width: 38px; height: 38px; flex-shrink: 0;
   display: flex; align-items: center; justify-content: center;
